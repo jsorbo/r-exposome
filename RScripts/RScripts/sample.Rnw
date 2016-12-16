@@ -1,0 +1,58 @@
+\documentclass[a4paper]{article}
+\usepackage[british]{babel}
+\begin{document}
+
+\title{Project Report Template}
+\author{Graham Williams}
+\maketitle\thispagestyle{empty}
+
+\section{Introduction}
+
+A paragraph or two introducing the project.
+
+\section{Business Problem}
+
+Describe discussions with client (business experts) and record
+decisions made and shared understanding of the business problem.
+
+\section{Data Sources}
+
+Identify the data sources and discuss access with the data
+owners. Document data sources, integrity, providence, and dates.
+
+\section{Data Preparation}
+
+Load the data into R and perform various operations on the data to
+shape it for modelling.
+
+\section{Data Exploration}
+
+We should always understand our data by exploring it in various
+ways. Include data summaries and various plots that give insights.
+
+\section{Model Building}
+
+Include all models built and parameters tried. Include R code and
+model evaluations.
+
+\section{Deployment}
+
+Choose the model to deploy and export it, perhaps as PMML.
+
+\section{Echoing Code}
+
+<<example_random_mean>>=
+x <- runif(1000) * 1000
+head(x)
+mean(x)
+@
+
+\section{Non-Echoing Code}
+
+<<example_random_mean_non_echo, echo=FALSE>>=
+x <- runif(1000) * 1000
+head(x)
+mean(x)
+@
+
+\end{document}
