@@ -1,14 +1,16 @@
 \documentclass[a4paper]{article}
 \usepackage[british]{babel}
+\usepackage{booktabs}
+
 \begin{document}
 
-\title{Project Report Template}
-\author{Graham Williams}
+\title{A Preprocessing Pipeline for Exposome Data}
+\author{Jeff Sorbo}
 \maketitle\thispagestyle{empty}
 
 \section{Introduction}
 
-A paragraph or two introducing the project.
+This project will include multiple preprocessing techniques for exposome data.
 
 \section{Business Problem}
 
@@ -54,5 +56,92 @@ x <- runif(1000) * 1000
 head(x)
 mean(x)
 @
+
+\section{Inline Code}
+
+<<includes, echo=FALSE, results="asis", message=FALSE, warning=FALSE>>=
+library(rattle)
+@
+
+Today's date is \Sexpr{format(Sys.Date(), format="%A, %e %B %Y")}.
+
+The weather dataset from rattle (Williams, 2014) has 366 (i.e., \Sexpr{nrow(weather)}) observations including
+observations of the following 4 variables: MinTemp, MaxTemp, Rainfall, Evaporation
+(i.e., \Sexpr{paste(names(weather)[3:6], collapse=", ")}).
+
+\section{Table with kable}
+
+<<example_kable, echo=TRUE, results="asis">>=
+#library(rattle)
+library(dplyr)
+set.seed(42)
+
+dsname <- "weatherAUS"
+ds <- tbl_df(get(dsname))
+nobs <- nrow(ds)
+obs <- sample(nobs, 20)
+vars <- 2:7
+ds <- ds[obs, vars]
+kable(ds, row.names=FALSE, digits=0, booktabs=TRUE)
+@
+
+\section{Table with xtable}
+
+<<example_xtable, echo=TRUE, results="asis">>=
+#library(rattle)
+library(xtable)
+dst <- weatherAUS[sample(nobs, 20), vars]
+xtable(dst)
+
+print(xtable(ds), include.rownames=FALSE)
+
+print(xtable(ds, digits=1), include.rownames=FALSE)
+
+dst <- ds
+dst[-1] <- sample(10000:99999, nrow(dst)) * dst[-1]
+print(xtable(dst, digits=0), include.rownames=FALSE)
+
+print(xtable(dst, digits=0),
+include.rownames=FALSE,
+format.args=list(big.mark=","))
+
+print(xtable(ds,
+digits=0,
+caption="Selected observations from \\textbf{weatherAUS}."),
+include.rownames=FALSE)
+
+print(xtable(ds,
+digits=0,
+caption="Selected observations from \\textbf{weatherAUS}.",
+label="MyTable"),
+include.rownames=FALSE)
+
+print(xtable(ds,
+digits=0,
+caption=paste("Here we include in the caption a sample of \\LaTeX{}",
+"symbols that can be included in the string, and note that the",
+"caption string can be the result of R commands, using paste()",
+"in this instance. Some sample symbols include:",
+"$\\alpha$ $\\longrightarrow$ $\\wp$.",
+"We also get a timestamp from R:",
+Sys.time()),
+label="SymbolCaption"),
+include.rownames=FALSE)
+
+@
+
+\section{Figure}
+
+<<figure>>=
+library(rattle) # For the weatherAUS dataset.
+library(ggplot2) # To generate a density plot.
+cities <- c("Canberra", "Darwin", "Melbourne", "Sydney")
+ds <- subset(weatherAUS, Location %in% cities & ! is.na(Temp3pm))
+p <- ggplot(ds, aes(Temp3pm, colour=Location, fill=Location))
+p <- p + geom_density(alpha=0.55)
+p
+@
+
+
 
 \end{document}
