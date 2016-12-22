@@ -1,5 +1,9 @@
 set.seed(1426)
+
 library(rattle)
+library(rpart)
+library(rpart.plot)
+
 data(weather)
 dsname <- "weather"
 ds <- get(dsname)
@@ -203,3 +207,65 @@ prp(model, type=2, extra=5)
 # probability of a second class - useful for binary classification
 
 prp(model, type=2, extra=6)
+
+# enhanced with percentage observations - good for bin classification
+# each node includes P(second class), usually pos class in bin class dataset
+
+prp(model, type=2, extra=106)
+
+# enhanced, only P(second class)
+
+prp(model, type=2, extra=7)
+
+# enhanced, P(class)
+
+prp(model, type=2, extra=8)
+
+# enhanced: overall probability
+
+prp(model, type=2, extra=9)
+
+# enhanced: percentage of observations
+
+prp(model, type=2, extra=100)
+
+# enhanced with node numbers
+
+prp(model, type=2, extra=106, nn=TRUE)
+
+# node indices
+
+prp(model, type=2, extra=106, nn=TRUE, ni=TRUE)
+
+# line up leaves
+
+prp(model, type=2, extra=106, nn=TRUE, fallen.leaves=TRUE)
+
+# angle branch lines
+
+prp(model, type=2, extra=106, nn=TRUE, fallen.leaves = TRUE, branch=0.5)
+
+# do not abbreviate factors
+
+prp(model, type=2, extra=106, nn=TRUE, fallen.leaves = TRUE, faclen=0)
+
+# shadow
+
+prp(model, type=2, extra=106, nn=TRUE, fallen.leaves=TRUE, shadow.col = "grey")
+
+# dotted line branches
+
+prp(model, type=2, extra=106, nn=TRUE, fallen.leaves=TRUE, branch.lty=3)
+
+# party tree
+
+library(partykit)
+
+class(model)
+
+plot(as.party(model))
+
+# textual representation improved
+
+print(as.party(model))
+
