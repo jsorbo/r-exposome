@@ -1,0 +1,86 @@
+Datta, Soma.
+A multi-stage decision algorithm for rule generation for minority class.
+August, 2014.
+
+QUESTIONS
+
+Need to replicate study using all methods? Predetermined algorithms?
+Need to reproduce results using same data sets?
+Study pros/cons of all methods
+
+
+I.      Introductory
+
+
+II.     Predictive modeling of student retention data.
+
+        A.  Ensemble learning.
+        
+            Decision tree from x unique attribs.
+            Rules abstracted and aggregated.
+            Rules validated using whole dataset and compared with other decision trees.
+            
+            Attribs ranked by tree learning algorithm using statistical methods.
+            Recursive partitioning generates tree.
+            
+            Rules are abstracted from the trees.
+            
+            Validation with other methods.
+            
+            Same dataset used to generate tree from C4.5, CART, recursive partitioning.
+            
+            (this section slightly unclear)
+        
+        B.  Ensemble learning with clustering.
+        
+            Clustering alternative method of selecting attribs for ensemble method.
+            Based on similarity rather than ranking.
+            
+            K-means with Euclidean distance.
+            User can select k value for number of clusters following experimentation.
+        
+        C.  Experiments and results.
+        
+            Recursive partitioning using JMP
+            C4.5 (aka J48), CART using WEKA
+            K-means using WEKA
+            
+            10-fold cross validation on F2010, F2011, combination of the two.
+            
+            (Some more experimental details...)
+            
+            Ideal k-value of 3 eventually found.
+
+
+III.    Multi-stage decision method to generate rules for student retention.
+
+        A.  Multi-stage decision tree.
+        
+            Dataset divided into 3 clusters using K-means.
+            Each cluster used in decision tree from recursive partitioning.
+            Apriori association mining to extract rules for each branch.
+            Rules from decision tree and AM methods combined to create final rules.
+            Newly generated rules validated against whole dataset.
+        
+        B.  Results.
+        
+            More useable rules.
+
+        
+IV.     Dynamic multi-stage controlled decision tree.
+
+        A.  Clustering.
+        
+            First EM clustering.
+            Second K-means.
+        
+        B.  Decision tree.
+        
+            Splitting halted when accuracy remained the same for the next two levels.
+        
+        C.  Association mining.
+        
+            Apriori
+            Rules from assn mining combined wiht attributes and values from decision tree
+        
+        D.  Results.
