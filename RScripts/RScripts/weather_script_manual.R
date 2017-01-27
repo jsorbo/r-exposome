@@ -269,3 +269,124 @@ plot(as.party(model))
 
 print(as.party(model))
 
+# conditional decision tree
+
+model <- ctree(formula=form, data=ds[train, vars])
+
+model
+
+# performance
+
+predicted <- predict(model, ds[test, vars], type="prob")[,2]
+riskchart(predicted, actual, risks)
+
+predicted <- predict(model, ds[test, vars], type="response")
+sum(actual != predicted)/length(predicted)
+
+round(100 * table(actual, predicted, dnn=c("Actual", "Predicted"))/length(predicted))
+
+plot(model)
+
+# RWeka decision tree
+
+library(RWeka)
+model <- J48(formula=form, data=ds[train, vars])
+
+model
+
+# performance
+
+predicted <- predict(model, ds[test, vars], type="prob")[,2]
+riskchart(predicted, actual, risks)
+
+predicted <- predict(model, ds[test, vars], type="class")
+sum(actual != predicted)/length(predicted)
+
+round(100 * table(actual, predicted, dnn=c("Actual", "Predicted"))/length(predicted))
+
+# plot using party
+
+plot(as.party(model))
+
+# text version
+
+print(as.party(model))
+
+# C5.0
+
+library(C50)
+
+model <- C5.0(form, ds[train, vars])
+
+model
+
+C5imp(model)
+
+summary(model)
+
+predicted <- predict(model, ds[test, vars], type="prob")[,2]
+riskchart(predicted, actual, risks)
+
+predicted <- predict(model, ds[test, vars], type="class")
+sum(actual != predicted)/length(predicted) # Overall error rate
+
+round(100*table(actual, predicted, dnn=c("Actual", "Predicted"))/length(predicted))
+
+# rules-based model
+
+library(C50)
+model <- C5.0(form, ds[train, vars], rules=TRUE)
+model
+
+C5imp(model)
+
+summary(model)
+
+predicted <- predict(model, ds[test, vars], type="prob")[,2]
+riskchart(predicted, actual, risks)
+
+predicted <- predict(model, ds[test, vars], type="class")
+sum(ds[test, target] != predicted)/length(predicted) # Overall error rate
+
+round(100*table(ds[test, target], predicted, dnn=c("Actual", "Predicted"))/length(predicted))
+
+# regression tree
+
+target <- "RISK_MM" 
+vars <- c(inputs, target) 
+form <- formula(paste(target, "~ .")) 
+(model <- rpart(formula=form, data=ds[train, vars]))
+
+plot(model) 
+text(model)
+
+plot(model, uniform=TRUE) 
+text(model)
+
+plot(model, uniform=TRUE) 
+text(model, use.n=TRUE, all=TRUE, cex=.8)
+
+fancyRpartPlot(model)
+
+prp(model)
+
+prp(model, type=2, extra=101, nn=TRUE, fallen.leaves=TRUE, faclen=0, varlen=0, shadow.col="grey", branch.lty=3)
+
+# party regression tree
+
+class(model)
+
+plot(as.party(model))
+
+# conditional regression tree
+
+model <- ctree(formula=form, data=ds[train, vars])
+
+model
+
+plot(model)
+
+
+
+
+
