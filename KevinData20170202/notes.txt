@@ -1,0 +1,28 @@
+All PH variables are regional rather than county
+Need to pay attention to point, county, regional, national, ... level for the variables.
+missing data may be -9999, blank entries, No Data, possibly 0
+will look at omitting missing values before imputing them
+
+
+Project Papers
+Write goals and aims and methods for project
+Need to find journals, author guidelines
+
+Journal of Health and Human Services
+   Why is the Exposome important?, why are we doing this?, why do we have a transdisciplinary team?
+   How does the system affect individuals as they pass through?
+   Bronfenbrenner's social ecological model (Exposome is based on this model)
+   Goes from global climate to individual points
+
+Preliminary modeling article with statistical models (Kevin, Voubouty, Dr. Hafiz)
+   How do we model cardio vascular disease using statistics
+   How do we handle terrabytes of data and missing values
+
+Paracliques and their use (journal) - maybe by disease, general review
+Build rules to predict dependent variables (with Soma, journal)
+How do the variables correspond geographically?
+Look at Mario's county data and make a conference paper
+Look at different diseases for the paraclique work
+
+In the future, every person who goes into a doctor's office, we can assign risk factors to that individual based upon where they have been, such as grew up in this county and is at risk for cardiovascular disease
+
