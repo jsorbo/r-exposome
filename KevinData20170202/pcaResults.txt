@@ -1,0 +1,273 @@
+Note that principal components on only the numeric
+ variables is calculated, and so we can not use this
+ approach to remove categoric variables from  consideration.
+
+ Any numeric variables with relatively large rotation
+ values (negative or positive) in any of the first few
+ components are generally variables that you may wish
+ to include in the modelling.
+
+Rattle timestamp: 2017-02-23 23:58:39 jsorbo
+======================================================================
+Standard deviations:
+ [1] 4.964636e+00 3.549148e+00 2.193477e+00 1.907355e+00 1.481751e+00 1.415077e+00 1.233825e+00 1.227930e+00 1.103728e+00 1.058927e+00
+[11] 1.023238e+00 9.621342e-01 9.208695e-01 8.558139e-01 8.432079e-01 7.736046e-01 7.576694e-01 7.247853e-01 6.698459e-01 6.408834e-01
+[21] 6.076908e-01 5.653319e-01 5.549292e-01 5.305554e-01 5.120319e-01 4.860474e-01 4.029771e-01 3.768256e-01 3.618929e-01 3.416349e-01
+[31] 2.953533e-01 2.846382e-01 2.606947e-01 2.405116e-01 2.158442e-01 1.996623e-01 1.934015e-01 1.791524e-01 1.629768e-01 1.399703e-01
+[41] 1.248378e-01 1.187173e-01 1.114726e-01 9.454018e-02 8.589991e-02 8.526110e-02 7.842400e-02 5.833034e-02 5.614776e-02 4.897776e-02
+[51] 4.772468e-02 4.450269e-02 4.109840e-02 3.619555e-02 3.394844e-02 3.026106e-02 2.584597e-02 2.368242e-02 2.228438e-02 1.983324e-02
+[61] 1.411346e-02 7.929818e-03 1.978408e-03 8.184709e-04 1.041832e-15
+
+Rotation:
+                                                                        PC1          PC2             PC3          PC4           PC5
+medianHouseholdIncome2000                         xxx             0.0782933200 x-0.166495771  x0.110839703527 x-0.281314086  0.0231494954
+peopleInPovertyRate                               xxxx            -0.0452385350  x0.176768294 x-0.196824391997  x0.141849156  0.0628651772
+insuranceOrMedicare                                            0.1949300053  0.050154383  0.020219063603  0.018903778  0.0032389282
+violentCrimes                                                  0.1624726104  0.062402778 -0.020486772447  0.077588566  0.0003342432
+perCapitaPersonalIncome                           xxx             0.0904263150 -0.146595457  x0.094490185006 x-0.242539634 -0.0009683405
+educationHighSchoolOrAboveRate                    xx             0.0484097626 x-0.213797972  0.096316590683 -0.024001486 x-0.1091076786
+populationPerSquareMile                                        0.0900397492  0.017968750  0.011523609534 -0.047484497 -0.0218338517
+urbanPopulationSample                                          0.1963709740  0.049954653 -0.003459030404  0.034142943 -0.0027896190
+malePopulationCompleteCount        x                            x0.1967405405  0.048191705  0.001944899340  0.025299627  0.0057656561
+femalePopulationCompleteCount      x                            x0.1971343236  0.049213710  0.003766680908  0.024729618  0.0015026840
+populationOfOneRaceWhiteAloneCompleteCount                     0.1938725531  0.028588720  0.022241402781 -0.015209488  0.0239582659
+populationOfOneRaceBlackOrAfricanAmericanAloneCompleteCount    0.1627709623  0.071923380  0.007219588305  0.009826597 -0.0997119560
+renterOccupiedHousingUnits                                     0.1921631691  0.057245361 -0.006158116206  0.055985852 -0.0043567653
+renterOccupiedHomesHouseholderBlackOrAfricanAmerican  x         x0.1680097292  0.071643542  0.007063339644  0.027652999 -0.0880551647
+renterOccupiedHomesHouseholderHispanicOrLatino                 0.1637134752  0.064806976 -0.039316789537  0.110919245  0.0191218335
+                                                                       PC6           PC7           PC8          PC9            PC10
+medianHouseholdIncome2000                                     -0.042873307  0.0742910269 -0.0445445824  0.058879683 -0.043718283023
+peopleInPovertyRate                                           x 0.211037630 -0.0370364606  0.1137856427 -0.044173957  0.032482808851
+insuranceOrMedicare                                           -0.029108844  0.0063160980 -0.0018569516 -0.017104858  0.063605194091
+violentCrimes                                                 -0.010814354  0.0440193017 -0.1026045301  0.193259969 -0.023366739391
+perCapitaPersonalIncome                                       x-0.162355914 -0.0250856525  0.0204725611  0.029093811  0.089522042523
+educationHighSchoolOrAboveRate                                -0.129013845  0.1003383578 -0.0057675221 -0.022003935  0.097447023594
+populationPerSquareMile                                        0.001556469 -0.1746927713  0.2616602801 -0.354048471 -0.336784624591
+urbanPopulationSample                                         -0.009557275  0.0106364745 -0.0347924169  0.053947546 -0.014967377073
+malePopulationCompleteCount                                   -0.006159799  0.0224216468 -0.0372901600  0.067663934 -0.002101284589
+femalePopulationCompleteCount                                 -0.008549014  0.0174219064 -0.0265978915  0.050319397 -0.002821527888
+populationOfOneRaceWhiteAloneCompleteCount                    -0.018864977  0.0511281584 -0.0331475845  0.043914568  0.091957091795
+populationOfOneRaceBlackOrAfricanAmericanAloneCompleteCount    0.012420172 -0.0958438449  0.1765173995 -0.310786244 -0.053358764091
+renterOccupiedHousingUnits                                    -0.013082433  0.0017020335 -0.0138806617  0.054973348 -0.084148629026
+renterOccupiedHomesHouseholderBlackOrAfricanAmerican           0.005084653 -0.0927333836  0.1617163198 -0.271400268 -0.094279687119
+renterOccupiedHomesHouseholderHispanicOrLatino                -0.001705909  0.0091496594 -0.1068784762  0.231437010 -0.214430533809
+                                                                        PC11          PC12           PC13          PC14          PC15
+medianHouseholdIncome2000                                      0.17113048554 -0.0758655763  0.10890734202 -0.0736176605  0.0577322046
+peopleInPovertyRate                                           -0.16566928704  0.1212701659 -0.05876944768 -0.1102545369 -0.0010709909
+insuranceOrMedicare                                            0.01070890574  0.0708578733 -0.01871213419 -0.0425660505  0.0052761582
+violentCrimes                                                 -0.03117173039 -0.0695178458 -0.01019927839  0.1714429414 -0.0231549675
+perCapitaPersonalIncome                                        0.09254189833  0.0161812399  0.11884702880 -0.1952678741  0.1019675160
+educationHighSchoolOrAboveRate                                 0.09204397865 -0.0602607901  0.09324672253  0.1779986419  0.1088048977
+populationPerSquareMile                                       -0.09309187332 -0.1752320220 -0.04242047234 -0.2791036299  0.4858712103
+urbanPopulationSample                                         -0.00447668975 -0.0110542023  0.00439614117 -0.0207450518  0.0046928802
+malePopulationCompleteCount                                   -0.00412245609  0.0002902249  0.00114509073 -0.0191258563  0.0029294209
+femalePopulationCompleteCount                                 -0.00238844799  0.0018190309 -0.00001354119 -0.0202938226  0.0021867390
+populationOfOneRaceWhiteAloneCompleteCount                     0.02423287669  0.0830415236 -0.01620593664 -0.1003916955 -0.0067977336
+populationOfOneRaceBlackOrAfricanAmericanAloneCompleteCount    0.07046124482 -0.0353933956  0.04570569015  0.1530734981 -0.1641208593
+renterOccupiedHousingUnits                                    -0.04491967017 -0.0636069671 -0.01524792574  0.0056723193  0.0545885205
+renterOccupiedHomesHouseholderBlackOrAfricanAmerican           0.03739861076 -0.0684943252  0.03028136871  0.1182745350 -0.0984234088
+renterOccupiedHomesHouseholderHispanicOrLatino                -0.12307581339 -0.1684426787 -0.02885330931  0.0225746049  0.1694264965
+                                                                      PC16         PC17         PC18          PC19         PC20
+medianHouseholdIncome2000                                     -0.026472106  0.054996529 -0.129463582  0.0109013093 -0.009363631
+peopleInPovertyRate                                            0.043828110  0.174745881  0.063161829  0.0749128192 -0.078827725
+insuranceOrMedicare                                            0.036340305  0.005584339  0.034662114 -0.0160501841 -0.046139211
+violentCrimes                                                 -0.030765508  0.020935067 -0.062387035  0.0996766334  0.220950022
+perCapitaPersonalIncome                                        0.020091726  0.040276599 -0.142197031  0.1305917193 -0.220758060
+educationHighSchoolOrAboveRate                                 0.012377066 -0.073012549 -0.119660020 -0.1286830301  0.073424767
+populationPerSquareMile                                       -0.060386710 -0.127182168  0.028874969 -0.3378085294 -0.072829524
+urbanPopulationSample                                          0.019718869  0.021083499 -0.001150533  0.0175993030 -0.038270161
+malePopulationCompleteCount                                    0.022218733  0.015344305  0.010422446  0.0030235686 -0.032936615
+femalePopulationCompleteCount                                  0.020458393  0.012836308  0.010218169  0.0029852936 -0.031782762
+populationOfOneRaceWhiteAloneCompleteCount                     0.078154476  0.043869402  0.074345944 -0.0428449950 -0.101895155
+populationOfOneRaceBlackOrAfricanAmericanAloneCompleteCount   -0.105900911 -0.009799838 -0.116706538  0.1284332575  0.086642135
+renterOccupiedHousingUnits                                    -0.007858557 -0.006109917 -0.009404751 -0.0116588600  0.015203948
+renterOccupiedHomesHouseholderBlackOrAfricanAmerican          -0.099688804 -0.019658612 -0.104897900  0.0829954527  0.075108236
+renterOccupiedHomesHouseholderHispanicOrLatino                -0.058390174 -0.063148669 -0.039129884 -0.0365855494  0.073786210
+                                                                      PC21          PC22          PC23         PC24          PC25
+medianHouseholdIncome2000                                      0.123614544 -0.0848862747  0.0540188640  0.176847022 -0.0027778192
+peopleInPovertyRate                                            0.029875842  0.0769847711  0.0241683886 -0.259077325  0.0318384201
+insuranceOrMedicare                                           -0.060832490 -0.0101369073 -0.0625412708  0.009003721 -0.0653392886
+violentCrimes                                                  0.062621173  0.1552953299  0.3129107556 -0.136391790  0.4786628975
+perCapitaPersonalIncome                                        0.139165134  0.0810224890  0.3128106016 -0.096772706  0.1123948712
+educationHighSchoolOrAboveRate                                 0.024546492 -0.2318294722 -0.0003059152 -0.101550205 -0.1943693227
+populationPerSquareMile                                       -0.134770786 -0.0009820598 -0.0594608377 -0.054586640  0.2155847416
+urbanPopulationSample                                          0.005855863 -0.0249330437 -0.0384160746  0.012990916 -0.0799159455
+malePopulationCompleteCount                                    0.009728588 -0.0228731076 -0.0399930910  0.010784025 -0.0660595788
+femalePopulationCompleteCount                                  0.004202213 -0.0217974310 -0.0393329583  0.010671453 -0.0648279702
+populationOfOneRaceWhiteAloneCompleteCount                    -0.043767685 -0.0526792786 -0.1031207184  0.030667150 -0.0846275878
+populationOfOneRaceBlackOrAfricanAmericanAloneCompleteCount    0.091192038  0.0193325768  0.0414946258  0.017847814 -0.0580640890
+renterOccupiedHousingUnits                                     0.019236688  0.0028719219  0.0025841100 -0.043330174 -0.0200786396
+renterOccupiedHomesHouseholderBlackOrAfricanAmerican           0.070472914  0.0219469277  0.0476699076 -0.011192980 -0.0238850137
+renterOccupiedHomesHouseholderHispanicOrLatino                 0.031660363  0.0218488555  0.0663525847 -0.042417163  0.0925397168
+                                                                       PC26         PC27          PC28         PC29          PC30
+medianHouseholdIncome2000                                     -0.0088284548  0.050845339 -0.1190302856 -0.288684169  0.1219345088
+peopleInPovertyRate                                           -0.1691350901 -0.217260964  0.1046679611  0.491282443 -0.0209700797
+insuranceOrMedicare                                           -0.0045757729  0.015079807  0.0850437727 -0.015102402  0.0660321376
+violentCrimes                                                  0.1832399318 -0.025168302  0.4191351188 -0.057282263  0.3700036313
+perCapitaPersonalIncome                                       -0.2051467504 -0.339125847  0.1729226917 -0.003126377 -0.3730641549
+educationHighSchoolOrAboveRate                                 0.6577717125 -0.043342130  0.0904292263  0.427251383 -0.1432966236
+populationPerSquareMile                                        0.0671128805  0.050663588  0.0812710522 -0.061817339  0.0628002864
+urbanPopulationSample                                         -0.0271530656 -0.038315230  0.0187895961  0.013062606  0.0041881481
+malePopulationCompleteCount                                   -0.0187625842 -0.025567672  0.0015294743  0.007745313  0.0021033987
+femalePopulationCompleteCount                                 -0.0198036410 -0.025683947  0.0051590893  0.005853332 -0.0015532969
+populationOfOneRaceWhiteAloneCompleteCount                    -0.0153548835 -0.034096962  0.0657664124 -0.007596104  0.0391006136
+populationOfOneRaceBlackOrAfricanAmericanAloneCompleteCount   -0.0569279959  0.013123839 -0.0954960260  0.015865718 -0.0748384504
+renterOccupiedHousingUnits                                     0.0034297845 -0.045180746  0.0049273722  0.041758789 -0.0670216171
+renterOccupiedHomesHouseholderBlackOrAfricanAmerican          -0.0468390622 -0.015470321 -0.1155252929  0.059552368 -0.1758208840
+renterOccupiedHomesHouseholderHispanicOrLatino                 0.0184189767 -0.027663304 -0.1665410620  0.020535408 -0.2211999161
+                                                                       PC31          PC32          PC33          PC34         PC35
+medianHouseholdIncome2000                                      0.4461193354 -0.2122393917  0.1425949982  0.1034022742  0.102020295
+peopleInPovertyRate                                            0.3608884174 -0.3537529474 -0.0203693689  0.0645510980 -0.017054830
+insuranceOrMedicare                                           -0.0539543627  0.0653219584 -0.1096783052  0.0110338458 -0.177909704
+violentCrimes                                                  0.0457620139  0.0592496709 -0.0382970098 -0.0366345363  0.013400906
+perCapitaPersonalIncome                                       -0.3250087588  0.0167388248 -0.2633264381 -0.0550481067  0.095764750
+educationHighSchoolOrAboveRate                                 0.0350225826 -0.0379515031 -0.1198848242  0.0327579393 -0.038445494
+populationPerSquareMile                                        0.0682668013 -0.0372755775 -0.1379108123 -0.1135192908  0.042050882
+urbanPopulationSample                                         -0.0003116951 -0.0268084465  0.0426315062 -0.0142306864  0.094889394
+malePopulationCompleteCount                                   -0.0078571536 -0.0324412425  0.0570819297  0.0028111258  0.116643335
+femalePopulationCompleteCount                                 -0.0047334287 -0.0240848567  0.0439704243  0.0001111738  0.082807257
+populationOfOneRaceWhiteAloneCompleteCount                     0.0300427902 -0.0310526273 -0.0002309700 -0.0525036903  0.077392145
+populationOfOneRaceBlackOrAfricanAmericanAloneCompleteCount    0.0199767838 -0.0098901623 -0.0081726509  0.0025347331 -0.035757138
+renterOccupiedHousingUnits                                    -0.1899610825 -0.0441790867  0.2854411055  0.0993978865  0.028607958
+renterOccupiedHomesHouseholderBlackOrAfricanAmerican          -0.1268100265 -0.0307001778  0.3077927882  0.1153670472 -0.159175402
+renterOccupiedHomesHouseholderHispanicOrLatino                -0.0428868674  0.0044500945  0.2083679817  0.1033689144 -0.162093978
+                                                                       PC36           PC37           PC38         PC39          PC40
+medianHouseholdIncome2000                                      0.0801234836 -0.44730043401 -0.01042247438  0.301065135  0.0499218436
+peopleInPovertyRate                                            0.0769321025 -0.19200095534 -0.12367375225  0.063930041  0.0324055180
+insuranceOrMedicare                                            0.2980561129 -0.03476705113  0.06060429218  0.042760358  0.0719859699
+violentCrimes                                                 -0.0782726286  0.07400376464  0.04321254692  0.171537132 -0.0540085155
+perCapitaPersonalIncome                                       -0.0198749276 -0.18469393411  0.01010694073 -0.010811895  0.0061659116
+educationHighSchoolOrAboveRate                                -0.0468794266 -0.08280995246 -0.05850325019  0.051501456 -0.0012496300
+populationPerSquareMile                                       -0.0919572436  0.05326739585 -0.00316740945  0.039424270 -0.0263592544
+urbanPopulationSample                                         -0.1456591144  0.02074212113 -0.03952476473 -0.025755902 -0.0361972030
+malePopulationCompleteCount                                   -0.1505506443 -0.00562912985 -0.04020819582 -0.062298449 -0.0295159398
+femalePopulationCompleteCount                                 -0.0985518956 -0.00684065494 -0.03054490052 -0.034588995 -0.0256476646
+populationOfOneRaceWhiteAloneCompleteCount                    -0.1428319587  0.06715927561 -0.02186300290  0.089463485 -0.2174715714
+populationOfOneRaceBlackOrAfricanAmericanAloneCompleteCount   -0.0249258416  0.02630391039  0.02870031530  0.054535904  0.0328119580
+renterOccupiedHousingUnits                                    -0.1022837044  0.02494370763 -0.01620399599 -0.082073697  0.0544226151
+renterOccupiedHomesHouseholderBlackOrAfricanAmerican           0.0196522547  0.06367560237  0.09695322117  0.336564934 -0.2510754822
+renterOccupiedHomesHouseholderHispanicOrLatino                -0.0067563346 -0.11303165100  0.04986590040 -0.087431732  0.5616539249
+                                                                       PC41          PC42          PC43          PC44          PC45
+medianHouseholdIncome2000                                      0.0427173558  0.0212655927  0.0554041526 -0.0785121000 -0.1003925681
+peopleInPovertyRate                                           -0.0314082301  0.0451759296  0.0305514786 -0.0132516786 -0.0548715972
+insuranceOrMedicare                                            0.0710408355 -0.0401456757  0.0021304324 -0.2213513655 -0.1018789891
+violentCrimes                                                 -0.1335466486 -0.0031851971  0.0149420224 -0.0639674755 -0.0283801399
+perCapitaPersonalIncome                                       -0.0677213576 -0.0482593951  0.0047048839  0.0063080991  0.0294425194
+educationHighSchoolOrAboveRate                                 0.0225260936  0.0302241079  0.0522453775 -0.0059974597  0.0037655149
+populationPerSquareMile                                        0.0618455316 -0.0106972069  0.0293560848 -0.0189578718  0.0081824414
+urbanPopulationSample                                          0.0928328827  0.0507789717 -0.0164997202 -0.1761113985  0.0520528845
+malePopulationCompleteCount                                    0.0767937119  0.0326251302 -0.0199352774 -0.0545221914  0.0819661622
+femalePopulationCompleteCount                                  0.1045892804  0.0386411464 -0.0129663599 -0.0605399804  0.1030731720
+populationOfOneRaceWhiteAloneCompleteCount                     0.0178121128  0.0124411201 -0.0277740617 -0.1607386291  0.2899725266
+populationOfOneRaceBlackOrAfricanAmericanAloneCompleteCount   -0.0906261751 -0.0201673541  0.0003436072 -0.0337134640  0.0480514708
+renterOccupiedHousingUnits                                     0.1447417890 -0.0211214046  0.0146637184 -0.3059398757 -0.5327349097
+renterOccupiedHomesHouseholderBlackOrAfricanAmerican          -0.3551587208  0.0080772593  0.0539467718 -0.0654197613  0.0359067768
+renterOccupiedHomesHouseholderHispanicOrLatino                -0.0878857882 -0.0111301498  0.0012010778  0.0848785225  0.2534696495
+                                                                       PC46          PC47           PC48          PC49          PC50
+medianHouseholdIncome2000                                     -0.0206144855 -0.0253023020  0.00775684956  0.0060074926  0.0023182124
+peopleInPovertyRate                                           -0.0096305994 -0.0230735941 -0.00184937633  0.0111787880 -0.0079109105
+insuranceOrMedicare                                            0.0119521068 -0.0446145636 -0.09466970024 -0.1244230447  0.0231709640
+violentCrimes                                                  0.0003193057 -0.0668573820  0.01917583386 -0.0419844157  0.0058243544
+perCapitaPersonalIncome                                        0.0233359172  0.0610183469  0.00835006666  0.0050880590  0.0107310185
+educationHighSchoolOrAboveRate                                -0.0047327678  0.0039797248  0.00406611249 -0.0018612116 -0.0044629814
+populationPerSquareMile                                        0.0003842674  0.0125383181  0.00727754710 -0.0343281639 -0.0432604451
+urbanPopulationSample                                          0.0285180218 -0.0565663800 -0.07851916753 -0.4116117278 -0.1055099148
+malePopulationCompleteCount                                    0.0310527404 -0.0249229339 -0.05564936875 -0.1868326771 -0.1061236202
+femalePopulationCompleteCount                                  0.0243023519 -0.0390758461 -0.03798069155 -0.1408082122 -0.0472642884
+populationOfOneRaceWhiteAloneCompleteCount                     0.0518765669 -0.2836928822  0.29347664827  0.3395835022  0.3011435862
+populationOfOneRaceBlackOrAfricanAmericanAloneCompleteCount    0.0273369303 -0.0300877453  0.08580762046 -0.1476579187  0.0395524800
+renterOccupiedHousingUnits                                    -0.0586371183  0.2126101853  0.14652430788  0.2851585877  0.0676679698
+renterOccupiedHomesHouseholderBlackOrAfricanAmerican           0.0433717475  0.0440049874 -0.03976176045 -0.0856809792 -0.0579637511
+renterOccupiedHomesHouseholderHispanicOrLatino                 0.0258637803 -0.2525545663 -0.21121986681  0.0978612632  0.1371076240
+                                                                       PC51           PC52            PC53           PC54          PC55
+medianHouseholdIncome2000                                      0.0508681747  0.01524238793  0.005799281749  0.01128117686  0.0087379782
+peopleInPovertyRate                                            0.0144019519  0.00808814785 -0.005423981642  0.00789960890  0.0054276723
+insuranceOrMedicare                                           -0.0368620052  0.00108904869 -0.061258598385  0.09641174360  0.0240178504
+violentCrimes                                                 -0.0213260631  0.00556205536  0.021580560242 -0.02368514988 -0.0073985418
+perCapitaPersonalIncome                                        0.0105679824 -0.00267500683 -0.003067330179 -0.00433296704  0.0001177226
+educationHighSchoolOrAboveRate                                -0.0047473372 -0.00431218876 -0.009683010215  0.00179065991  0.0004082080
+populationPerSquareMile                                        0.0123772951  0.01639562829 -0.000729858661  0.01944367138 -0.0003187555
+urbanPopulationSample                                         -0.1213970387  0.00531903254  0.182206475894 -0.37883168328  0.0422735309
+malePopulationCompleteCount                                    0.0081779477  0.04073978574 -0.000081438416  0.03498581013 -0.0422857350
+femalePopulationCompleteCount                                 -0.0390974147  0.00012525394  0.054057967142 -0.03428903964 -0.0404639007
+populationOfOneRaceWhiteAloneCompleteCount                    -0.0330342035 -0.03588149556  0.188796702299  0.06461526390  0.0043794136
+populationOfOneRaceBlackOrAfricanAmericanAloneCompleteCount   -0.0656744191  0.01591642986 -0.075993591755  0.01152762068 -0.0065624373
+renterOccupiedHousingUnits                                     0.1059324210 -0.01694952996  0.364128755938  0.15909648665  0.0266797440
+renterOccupiedHomesHouseholderBlackOrAfricanAmerican           0.0247442726  0.02065068786  0.055238106239  0.06344916260  0.0016006545
+renterOccupiedHomesHouseholderHispanicOrLatino                -0.0279660610 -0.03399696639  0.002004974715  0.06082784575  0.0025387996
+                                                                       PC56          PC57          PC58           PC59           PC60
+medianHouseholdIncome2000                                      0.0038490014  0.0139321816  0.0071770627  0.00792311176  0.00070781924
+peopleInPovertyRate                                           -0.0033297672  0.0069899048  0.0012416922 -0.00123553296  0.00182288256
+insuranceOrMedicare                                            0.0692916751  0.0273534349  0.0424753283 -0.04043767861  0.03439103766
+violentCrimes                                                 -0.0544499583 -0.0018607785 -0.0018163937  0.01378196572  0.01978115105
+perCapitaPersonalIncome                                        0.0068930420 -0.0092596638 -0.0029671368  0.00222932440  0.00099094401
+educationHighSchoolOrAboveRate                                -0.0025849590 -0.0007372075  0.0003615010 -0.00031320478 -0.00243530778
+populationPerSquareMile                                       -0.0198563275 -0.0037871735 -0.0011094108 -0.00882862825 -0.00888342310
+urbanPopulationSample                                          0.4666589174  0.0415005835  0.1979694280  0.23042435034 -0.39551038157
+malePopulationCompleteCount                                   -0.2410667525 -0.0260713208 -0.0353226332 -0.04677527316  0.15311195924
+femalePopulationCompleteCount                                 -0.1113509039 -0.0149328675 -0.0072629801 -0.18627878203  0.30539094250
+populationOfOneRaceWhiteAloneCompleteCount                    -0.1540714251 -0.0632337423 -0.2359559636 -0.06228372840 -0.39596157150
+populationOfOneRaceBlackOrAfricanAmericanAloneCompleteCount   -0.3697853460  0.0783843251 -0.1515446010  0.66030965343 -0.00711180837
+renterOccupiedHousingUnits                                     0.0420013943  0.0321040936  0.0759887276  0.16701552995  0.10372545030
+renterOccupiedHomesHouseholderBlackOrAfricanAmerican           0.0973909766 -0.0703152137  0.0434325524 -0.43618576018 -0.09841470436
+renterOccupiedHomesHouseholderHispanicOrLatino                -0.0204370108 -0.0056844481 -0.0004650779  0.01139996767 -0.12555462737
+                                                                        PC61            PC62            PC63            PC64
+medianHouseholdIncome2000                                      0.00444714308  0.001306603561  0.000103391915  0.000027241305
+peopleInPovertyRate                                           -0.00053978260  0.000955551794  0.000104216241  0.000003765593
+insuranceOrMedicare                                           -0.80300479099  0.045029437377  0.014044837960 -0.004609897814
+violentCrimes                                                 -0.00394967007 -0.006354941872 -0.000725067754  0.000463105610
+perCapitaPersonalIncome                                       -0.00179537396 -0.000423708190 -0.000204207196  0.000362931731
+educationHighSchoolOrAboveRate                                -0.00092891014  0.000297004550  0.000105209705 -0.000031500165
+populationPerSquareMile                                        0.00015021664  0.000367304411  0.000333380165  0.000059512612
+urbanPopulationSample                                          0.06308421747 -0.015610915853 -0.000490360924  0.000739503482
+malePopulationCompleteCount                                    0.02642573578  0.713158162597 -0.472214430425 -0.063576002759
+femalePopulationCompleteCount                                 -0.00862274081 -0.669411528315 -0.518561351640 -0.073594908850
+populationOfOneRaceWhiteAloneCompleteCount                    -0.08340437653 -0.020103472507  0.004662230557  0.003284757685
+populationOfOneRaceBlackOrAfricanAmericanAloneCompleteCount   -0.05628919046 -0.100638319585 -0.002066171734 -0.000734406970
+renterOccupiedHousingUnits                                     0.04066981183  0.000568337471 -0.003996370805 -0.000366595356
+renterOccupiedHomesHouseholderBlackOrAfricanAmerican           0.01416895446  0.040318843414  0.001675211118  0.001318237056
+renterOccupiedHomesHouseholderHispanicOrLatino                -0.02359741393 -0.008850316962 -0.000152892548  0.000614122495
+                                                                       PC65
+medianHouseholdIncome2000                                      0.000000e+00
+peopleInPovertyRate                                           -2.116363e-16
+insuranceOrMedicare                                           -3.201871e-15
+violentCrimes                                                  5.369106e-16
+perCapitaPersonalIncome                                       -9.050166e-16
+educationHighSchoolOrAboveRate                                -1.190417e-16
+populationPerSquareMile                                       -5.087245e-17
+urbanPopulationSample                                         -2.718200e-15
+malePopulationCompleteCount                                    2.265437e-15
+femalePopulationCompleteCount                                 -3.945651e-15
+populationOfOneRaceWhiteAloneCompleteCount                    -1.800565e-15
+populationOfOneRaceBlackOrAfricanAmericanAloneCompleteCount   -1.018373e-15
+renterOccupiedHousingUnits                                     2.222351e-15
+renterOccupiedHomesHouseholderBlackOrAfricanAmerican          -1.434152e-16
+renterOccupiedHomesHouseholderHispanicOrLatino                 6.548172e-17
+ [ reached getOption("max.print") -- omitted 50 rows ]
+
+Rattle timestamp: 2017-02-23 23:58:39 jsorbo
+======================================================================
+Importance of components:
+                          PC1    PC2     PC3     PC4     PC5     PC6     PC7    PC8     PC9    PC10    PC11    PC12    PC13    PC14
+Standard deviation     4.9646 3.5491 2.19348 1.90735 1.48175 1.41508 1.23382 1.2279 1.10373 1.05893 1.02324 0.96213 0.92087 0.85581
+Proportion of Variance 0.3792 0.1938 0.07402 0.05597 0.03378 0.03081 0.02342 0.0232 0.01874 0.01725 0.01611 0.01424 0.01305 0.01127
+Cumulative Proportion  0.3792 0.5730 0.64701 0.70298 0.73675 0.76756 0.79098 0.8142 0.83292 0.85017 0.86628 0.88052 0.89357 0.90483
+                          PC15    PC16    PC17    PC18   PC19    PC20    PC21    PC22    PC23    PC24    PC25    PC26   PC27    PC28
+Standard deviation     0.84321 0.77360 0.75767 0.72479 0.6698 0.64088 0.60769 0.56533 0.55493 0.53056 0.51203 0.48605 0.4030 0.37683
+Proportion of Variance 0.01094 0.00921 0.00883 0.00808 0.0069 0.00632 0.00568 0.00492 0.00474 0.00433 0.00403 0.00363 0.0025 0.00218
+Cumulative Proportion  0.91577 0.92498 0.93381 0.94189 0.9488 0.95512 0.96080 0.96571 0.97045 0.97478 0.97882 0.98245 0.9849 0.98713
+                          PC29   PC30    PC31    PC32    PC33    PC34    PC35    PC36    PC37    PC38    PC39   PC40    PC41    PC42
+Standard deviation     0.36189 0.3416 0.29535 0.28464 0.26069 0.24051 0.21584 0.19966 0.19340 0.17915 0.16298 0.1400 0.12484 0.11872
+Proportion of Variance 0.00201 0.0018 0.00134 0.00125 0.00105 0.00089 0.00072 0.00061 0.00058 0.00049 0.00041 0.0003 0.00024 0.00022
+Cumulative Proportion  0.98915 0.9909 0.99229 0.99353 0.99458 0.99547 0.99618 0.99680 0.99737 0.99787 0.99828 0.9986 0.99882 0.99903
+                          PC43    PC44    PC45    PC46    PC47    PC48    PC49    PC50    PC51    PC52    PC53    PC54    PC55    PC56
+Standard deviation     0.11147 0.09454 0.08590 0.08526 0.07842 0.05833 0.05615 0.04898 0.04772 0.04450 0.04110 0.03620 0.03395 0.03026
+Proportion of Variance 0.00019 0.00014 0.00011 0.00011 0.00009 0.00005 0.00005 0.00004 0.00004 0.00003 0.00003 0.00002 0.00002 0.00001
+Cumulative Proportion  0.99922 0.99936 0.99948 0.99959 0.99968 0.99973 0.99978 0.99982 0.99985 0.99989 0.99991 0.99993 0.99995 0.99996
+                          PC57    PC58    PC59    PC60    PC61    PC62     PC63      PC64      PC65
+Standard deviation     0.02585 0.02368 0.02228 0.01983 0.01411 0.00793 0.001978 0.0008185 1.042e-15
+Proportion of Variance 0.00001 0.00001 0.00001 0.00001 0.00000 0.00000 0.000000 0.0000000 0.000e+00
+Cumulative Proportion  0.99997 0.99998 0.99999 1.00000 1.00000 1.00000 1.000000 1.0000000 1.000e+00
+
+Rattle timestamp: 2017-02-23 23:58:39 jsorbo
+======================================================================
