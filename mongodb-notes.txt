@@ -1,0 +1,90 @@
+# run from command line and install as a service.
+mongod -f c:\data\mongod.conf --install
+
+# start the service.
+net start mongodb
+
+# verify it's running.
+net start | findstr Mongo
+
+# stop the service.
+net stop mongodb
+
+# start the shell.
+mongo
+
+# list dbs
+show dbs
+
+# list current db
+db
+
+# switch to db 'foo'
+use foo
+
+# help from shell
+help
+
+# mongo shell is js interpreter.
+# configure java object for replica set config
+var demoConfig = { 
+    _id: "demo", 
+    members: [
+        { 
+            _id: 0, 
+            host: "localhost:30000", 
+            priority: 10 
+        }, {
+            _id: 1,
+            host: "localhost:40000"
+        }, {
+            _id: 2,
+            host: "localhost:50000",
+            arbiterOnly: true
+        }
+    ]
+};
+
+# initialize
+rs.initiate(demoConfig)
+
+# create some data
+db.foo.save({_id:1, value:"hi world"});
+
+# verify
+db.foo.find();
+
+# allow me to read from a slave
+db.setSlaveOk();
+
+# blind command
+mongo server1/admin --eval "db.runCommand({logRotate:1});"
+
+# run script
+mongo server1 myScript.js
+
+# run script and then stay in
+mongo server1 myScript.js --shell
+
+# print json output
+mongo localhost/admin --eval "printjson(db.runCommand({logRotate:1}));"
+
+# prevent dropping database
+DB.prototype.dropDatabase = function () {
+    print("Don't do this.");
+};
+
+db.dropDatabase = DB.prototype.dropDatabase;
+
+# set env var
+set EDITOR="c:\Program Files (x86)\Notepad++\notepad++.exe"
+
+# print working directory
+pwd
+
+# load file
+load("safe.js")
+
+# run shell without loading rcfile
+mongo --norc
+
