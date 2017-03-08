@@ -1,31 +1,11 @@
-install.packages("mongolite")
+################################################################################
+# 1. install packages
 
-library(mongolite)
+install.packages("rpart")
+install.packages("rpart.plot")
 
-# Connect to MongoDB collections
-
-AllIndependentVariables <- mongo(db = "exposome", collection = "AllIndependentVariables")
-# CensusCodeBook <- mongo(db = "exposome", collection = "CensusCodeBook")
-# CvdPercentilePoints <- mongo(db = "exposome", collection = "CvdPercentilePoints")
-# DependentVariableAgeAdjusted <- mongo(db = "exposome", collection = "DependentVariableAgeAdjusted")
-# DependentVariableByAgeCategory <- mongo(db = "exposome", collection = "DependentVariableByAgeCategory")
-# IndependentPercentilePoints <- mongo(db = "exposome", collection = "IndependentPercentilePoints")
-QuintilesForPctCvd <- mongo(db = "exposome", collection = "QuintilesForPctCvd")
-
-# Retrieve all fields from each collection
-
-independent <- AllIndependentVariables$find()
-# CensusCodeBook$find()
-# CvdPercentilePoints$find()
-# DependentVariableAgeAdjusted$find()
-# DependentVariableByAgeCategory$find()
-# IndependentPercentilePoints$find()
-dependentQuintiles <- QuintilesForPctCvd$find()
-
-# Export back out to CSV
-
-write.csv(independent, "c:\\repos\\msseproject\\independent.csv")
-write.csv(dependentQuintiles, "c:\\repos\\msseproject\\dependentQuintiles.csv")
+################################################################################
+# 2. load data, rename columns, clean data, merge data frames
 
 # Import from csv
 
@@ -36,12 +16,6 @@ renameColumn <- function(dataFrame, from, to) {
   names(dataFrame)[names(dataFrame) == from] <- to
   return(dataFrame)
 }
-
-# Remove ' County' substring from County field
-
-dependentQuintiles["County"] <- lapply(dependentQuintiles["County"], gsub, pattern = " County", replacement = "", fixed = TRUE)
-
-# Join independent with dependent quintiles
 
 independent <- renameColumn(independent, "AGE030200D", "populationApril2000")
 independent <- renameColumn(independent, "AGE040200D", "populationJuly2000")
@@ -147,12 +121,7 @@ independent["medicare"] <- lapply(independent["medicare"], as.numeric)
 
 independent = independent[complete.cases(independent),]
 
-names(independent)
-independent
-
-# Retrieve fields from dependent quintiles
-
-dependentQuintiles <- QuintilesForPctCvd$find()
+# convert to numeric
 
 dependentQuintiles["ageadjustedrate"] <- lapply(dependentQuintiles["ageadjustedrate"], as.numeric)
 
@@ -164,27 +133,66 @@ dependentQuintiles["County"] <- lapply(dependentQuintiles["County"], gsub, patte
 
 merged <- merge(x=independent, y=dependentQuintiles, by.x="Areaname", by.y=gsub(" County", "", "County"))
 
-# Projection from joined dataframes
-
-d = subset(merged, select=c(
-  "ageadjustedpercent2004diabetes", "ageadjustedpercentleisuretimephysicalinactivityprevalence2004", 
-  "unemploymentRate", "educationHighSchoolOrAboveRate", "perCapitaPersonalIncome",
-  "AvgDailyMinAirTemperatureF", "AvgDailyMaxHeatIndexF",
-  "Quintiles"))
-
-# Convert to numeric
-
-d["ageadjustedpercent2004diabetes"] <- lapply(d["ageadjustedpercent2004diabetes"], as.numeric)
-d["ageadjustedpercentleisuretimephysicalinactivityprevalence2004"] <- lapply(d["ageadjustedpercentleisuretimephysicalinactivityprevalence2004"], as.numeric)
-d["Quintiles"] <- lapply(d["Quintiles"], as.numeric)
-d["unemploymentRate"] <- lapply(d["unemploymentRate"], as.numeric)
-d["educationHighSchoolOrAboveRate"] <- lapply(d["educationHighSchoolOrAboveRate"], as.numeric)
-d["perCapitaPersonalIncome"] <- lapply(d["perCapitaPersonalIncome"], as.numeric)
-d["AvgDailyMinAirTemperatureF"] <- lapply(d["AvgDailyMinAirTemperatureF"], as.numeric)
-d["AvgDailyMaxHeatIndexF"] <- lapply(d["AvgDailyMaxHeatIndexF"], as.numeric)
-
-
 # Remove na
 
-d = d[complete.cases(d),]
+merged = merged[complete.cases(merged),]
 
+################################################################################
+# 3. prepare for decision tree modeling
+
+crs$dataset <- merged
+
+# Display a simple summary (structure) of the dataset.
+
+str(crs$dataset)
+
+# Build the training/validate/test datasets.
+
+crv$seed <- 42 
+
+set.seed(crv$seed) 
+crs$nobs <- nrow(crs$dataset)
+crs$sample <- crs$train <- sample(nrow(crs$dataset), 0.7*crs$nobs)
+crs$validate <- sample(setdiff(seq_len(nrow(crs$dataset)), crs$train), 0.15*crs$nobs)
+crs$test <- setdiff(setdiff(seq_len(nrow(crs$dataset)), crs$train), crs$validate)
+
+crs$target  <- "Quintiles"
+crs$ident   <- "STCOU"
+
+crs$input <- c("b_1999", "b_2000", "averagesmoke1996to2000", "ageadjustedpercent2004diabetes",
+               "percentobesity2004", "ageadjustedpercentobesity2004", "percentleisuretimephysicalinactivityprevalence2004", "ageadjustedpercentleisuretimephysicalinactivityprevalence2004",
+               "percent2004diabetes", "PH_SODA")
+
+crs$numeric <- c("b_1999", "b_2000", "averagesmoke1996to2000", "ageadjustedpercent2004diabetes",
+                 "percentobesity2004", "ageadjustedpercentobesity2004", "percentleisuretimephysicalinactivityprevalence2004", "ageadjustedpercentleisuretimephysicalinactivityprevalence2004",
+                 "percent2004diabetes", "PH_SODA")
+
+crs$ignore  <- c("Areaname", "medianHouseholdIncome2000", "peopleInPovertyRate", "insuranceOrMedicare", "violentCrimes", "perCapitaPersonalIncome", "educationHighSchoolOrAboveRate", "populationPerSquareMile", "urbanPopulationSample", "malePopulationCompleteCount", "femalePopulationCompleteCount", "populationOfOneRaceWhiteAloneCompleteCount", "populationOfOneRaceBlackOrAfricanAmericanAloneCompleteCount", "renterOccupiedHousingUnits", "renterOccupiedHomesHouseholderBlackOrAfricanAmerican", "renterOccupiedHomesHouseholderHispanicOrLatino", "householdsMaleNoWife", "householdsFemaleNoHusband", "socialSecurityBenefitRecipients", "supplementalSecurityIncomeRecipients", "landArea", "unemploymentRate", "bankOfficesJune2000", "AvgFineParticulateMatterµgm", "AvgDailyPrecipitationmm", "AvgDayLandSurfaceTemperatureF", "AvgDailyMaxAirTemperatureF", "AvgDailyMinAirTemperatureF", "AvgDailyMaxHeatIndexF", "populationApril2000", "populationJuly2000", "b_1996", "b_1997", "b_1998", "populationMedianAgeApril2000", "number2004diabetes", "percent2004diabetes", "ownerOccupiedHomesHouseholderBlackOrAfricanAmerican", "ownerOccupiedHomesHouseholderHispanicOrLatino", "sampleMedianHousingUnitValue", "perCapitaIncome", "numberobesityprevalence2004", "numberleisuretimephysicalinactivityprevalence2004", "HHNV1MI", "FFRPTH07", "FSRPTH07", "PH_FRUVEG", "PH_SNACKS", "PH_MEAT", "PH_FATS", "PH_PREPFOOD", "medicare", "CountyCode", "Deaths", "Population", "Crude", "ageadjustedrate", "PCT_CVD_death")
+
+################################################################################
+# 4. generate decision tree 
+
+library(rpart, quietly=TRUE)
+library(rpart.plot)
+
+# Reset the random number seed to obtain the same results each time.
+
+set.seed(crv$seed)
+
+# Build the Decision Tree model.
+
+crs$rpart <- rpart(Quintiles ~ .,
+                   data=crs$dataset[crs$train, c(crs$input, crs$target)],
+                   method="class",
+                   parms=list(split="information"),
+                   control=rpart.control(usesurrogate=0, 
+                                         maxsurrogate=0))
+
+# Generate a textual view of the Decision Tree model.
+
+print(crs$rpart)
+printcp(crs$rpart)
+
+# Plot the resulting Decision Tree. 
+
+rpart.plot(crs$rpart)

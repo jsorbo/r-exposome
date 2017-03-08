@@ -1,0 +1,34 @@
+Summary of the Decision Tree model for Classification (built using 'rpart'):
+
+n= 2084 
+
+node), split, n, loss, yval, (yprob)
+      * denotes terminal node
+
+1) root 2084 1660 4 (0 0.2 0.2 0.2 0.2 0.2)  
+  2) percentleisuretimephysicalinactivityprevalence2004< 23.65 671  409 1 (0 0.39 0.25 0.16 0.11 0.089) *
+  3) percentleisuretimephysicalinactivityprevalence2004>=23.65 1413 1053 5 (0 0.1 0.17 0.22 0.25 0.25)  
+    6) averagesmoke1996to2000>=25.53 1096  793 4 (0 0.1 0.2 0.25 0.28 0.16) *
+    7) averagesmoke1996to2000< 25.53 317  132 5 (0 0.1 0.069 0.088 0.15 0.58) *
+
+Classification tree:
+rpart(formula = Quintiles ~ ., data = crs$dataset[crs$train, 
+    c(crs$input, crs$target)], method = "class", parms = list(split = "information"), 
+    control = rpart.control(usesurrogate = 0, maxsurrogate = 0))
+
+Variables actually used in tree construction:
+[1] averagesmoke1996to2000                             percentleisuretimephysicalinactivityprevalence2004
+
+Root node error: 1660/2084 = 0.79655
+
+n= 2084 
+
+        CP nsplit rel error  xerror     xstd
+1 0.119277      0   1.00000 1.03072 0.010542
+2 0.077108      1   0.88072 0.89759 0.012415
+3 0.010000      2   0.80361 0.81205 0.013144
+
+Time taken: 0.21 secs
+
+Rattle timestamp: 2017-03-02 22:52:59 jsorbo
+======================================================================
