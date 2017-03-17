@@ -1,4 +1,2 @@
 library(rattle)
 rattle()
-
-
