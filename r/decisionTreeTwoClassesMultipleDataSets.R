@@ -1,5 +1,5 @@
 ################################################################################
-# 1. install packages
+# 1. install packages, load libraries
 
 install.packages("rpart")
 install.packages("rpart.plot")
@@ -12,8 +12,8 @@ library(rpart.plot)
 
 # Import from csv
 
-independent <- read.csv(file="c:\\repos\\msseproject\\exposome-data\\independent.csv", header=TRUE)
-dependentQuintiles <- read.csv(file="c:\\repos\\msseproject\\exposome-data\\dependentQuintiles.csv", header=TRUE)
+independent <- read.csv(file="..\\exposome-data\\independent.csv", header=TRUE)
+dependentQuintiles <- read.csv(file="..\\exposome-data\\dependentQuintiles.csv", header=TRUE)
 
 renameColumn <- function(dataFrame, from, to) {
   names(dataFrame)[names(dataFrame) == from] <- to
@@ -146,14 +146,17 @@ merged$cvd <- sapply(merged$Quintiles, function(x) ifelse(x == "1" || x == "2", 
 
 merged$cvd <- sapply(merged$cvd, as.factor)
 
-# dataset is ten variables from paraclique plus cvd
+################################################################################
+# 3. select data set from options below
+
+# dataset 1 is ten variables from paraclique plus cvd
 
 dataset <- merged[,c("b_1999", "b_2000", "averagesmoke1996to2000", "percent2004diabetes",
                      "ageadjustedpercent2004diabetes", "percentobesity2004", "ageadjustedpercentobesity2004", 
                      "percentleisuretimephysicalinactivityprevalence2004",
                      "ageadjustedpercentleisuretimephysicalinactivityprevalence2004", "PH_SODA", "cvd")]
 
-# selected from pca after eliminating "non-rate" variables
+# dataset 2 is selected from pca after eliminating raw quantity variables
 
 dataset <- merged[,c("educationHighSchoolOrAboveRate", 
                      "ageadjustedpercentleisuretimephysicalinactivityprevalence2004", 
@@ -179,7 +182,7 @@ dataset <- merged[,c("educationHighSchoolOrAboveRate",
                      "cvd")]
 
 ################################################################################
-# 3. prepare for decision tree modeling
+# 4. prepare for decision tree modeling
 
 # Build the training/validate/test datasets.
 
@@ -200,10 +203,11 @@ trainColNum <- grep("train", names(trainset))
 trainset <- trainset[,-trainColNum]
 testset <- testset[,-trainColNum]
 
-# 4. run decision tree
-
 # get column index of predicted variable
 typeColNum <- grep("cvd", names(dataset))
+
+################################################################################
+# 5. build decision trees
 
 # build model
 rpart_model <- rpart(cvd ~ ., data = trainset, method = "class")
@@ -241,8 +245,6 @@ rpart.plot(pruned_model)
 # find proportion of correct predictions using test set
 rpart_pruned_predict <- predict(pruned_model, testset[, -typeColNum], type = "class")
 mean(rpart_pruned_predict == testset$cvd)
-
-# (same value, this is an unpruned tree)
 
 # function to do multiple runs
 multiple_runs_classification <- function(train_fraction, n, dataset, prune_tree = FALSE) {
