@@ -142,9 +142,9 @@ merged = merged[complete.cases(merged),]
 
 merged <- merged[merged$Quintiles!="#NULL!",]
 
-merged$cvd <- sapply(merged$Quintiles, function(x) ifelse(x == "1" || x == "2", "0", "1"))
-
-merged$cvd <- sapply(merged$cvd, as.factor)
+# group quintiles into two groups
+# merged$cvd <- sapply(merged$Quintiles, function(x) ifelse(x == "1" || x == "2", "0", "1"))
+# merged$cvd <- sapply(merged$cvd, as.factor)
 
 ################################################################################
 # 3. select data set from options below
@@ -154,7 +154,14 @@ merged$cvd <- sapply(merged$cvd, as.factor)
 dataset <- merged[,c("b_1999", "b_2000", "averagesmoke1996to2000", "percent2004diabetes",
                      "ageadjustedpercent2004diabetes", "percentobesity2004", "ageadjustedpercentobesity2004", 
                      "percentleisuretimephysicalinactivityprevalence2004",
-                     "ageadjustedpercentleisuretimephysicalinactivityprevalence2004", "PH_SODA", "cvd")]
+                     "ageadjustedpercentleisuretimephysicalinactivityprevalence2004", "PH_SODA", "Quintiles")]
+
+# dataset 1 is ten variables from paraclique plus cvd
+
+dataset <- merged[,c("5tile.b_1999", "5tile.b_2000", "5tile.averagesmoke1996to2000", "5tile.percent2004diabetes",
+                     "5tile.ageadjustedpercent2004diabetes", "5tile.percentobesity2004", "5tile.ageadjustedpercentobesity2004", 
+                     "5tile.percentleisuretimephysicalinactivityprevalence2004",
+                     "5tile.ageadjustedpercentleisuretimephysicalinactivityprevalence2004", "5tile.PH_SODA", "Quintiles")]
 
 # dataset 2 is selected from pca after eliminating raw quantity variables
 
@@ -181,6 +188,31 @@ dataset <- merged[,c("educationHighSchoolOrAboveRate",
                      "ageadjustedpercent2004diabetes",
                      "cvd")]
 
+# dataset 2 is selected from pca after eliminating raw quantity variables
+
+dataset <- merged[,c("5tile.educationHighSchoolOrAboveRate", 
+                     "5tile.ageadjustedpercentleisuretimephysicalinactivityprevalence2004", 
+                     "5tile.percentleisuretimephysicalinactivityprevalence2004", 
+                     "5tile.perCapitaIncome", 
+                     "5tile.medianHouseholdIncome2000", 
+                     "5tile.peopleInPovertyRate", 
+                     "5tile.ageadjustedpercentobesity2004", 
+                     "5tile.perCapitaPersonalIncome", 
+                     "5tile.percentobesity2004", 
+                     "5tile.sampleMedianHousingUnitValue", 
+                     "5tile.AvgDailyMaxAirTemperatureF", 
+                     "5tile.AvgDailyMinAirTemperatureF", 
+                     "5tile.AvgDailyMaxHeatIndexF", 
+                     "5tile.unemploymentRate", 
+                     "5tile.AvgDayLandSurfaceTemperatureF", 
+                     "5tile.AvgDailyPrecipitationmm", 
+                     "5tile.AvgFineParticulateMatterµgm", 
+                     "5tile.populationPerSquareMile", 
+                     "5tile.percent2004diabetes", 
+                     "5tile.populationMedianAgeApril2000", 
+                     "5tile.ageadjustedpercent2004diabetes",
+                     "Quintiles")]
+
 ################################################################################
 # 4. prepare for decision tree modeling
 
@@ -204,23 +236,23 @@ trainset <- trainset[,-trainColNum]
 testset <- testset[,-trainColNum]
 
 # get column index of predicted variable
-typeColNum <- grep("cvd", names(dataset))
+typeColNum <- grep("Quintiles", names(dataset))
 
 ################################################################################
 # 5. build decision trees
 
 # build model
-rpart_model <- rpart(cvd ~ ., data = trainset, method = "class")
+rpart_model <- rpart(Quintiles ~ ., data = trainset, method = "class")
 
 # plot tree
 rpart.plot(rpart_model)
 
 # try against test data
 rpart_predict <- predict(rpart_model, testset[, -typeColNum], type = "class")
-mean(rpart_predict == testset$cvd)
+mean(rpart_predict == testset$Quintiles)
 
 # confusion matrix
-table(pred = rpart_predict, true = testset$cvd)
+table(pred = rpart_predict, true = testset$Quintiles)
 
 # cost-complexity pruning
 # pick the appropriate pruning parameter alpha by
@@ -244,7 +276,7 @@ rpart.plot(pruned_model)
 
 # find proportion of correct predictions using test set
 rpart_pruned_predict <- predict(pruned_model, testset[, -typeColNum], type = "class")
-mean(rpart_pruned_predict == testset$cvd)
+mean(rpart_pruned_predict == testset$Quintiles)
 
 # function to do multiple runs
 multiple_runs_classification <- function(train_fraction, n, dataset, prune_tree = FALSE) {
@@ -255,21 +287,21 @@ multiple_runs_classification <- function(train_fraction, n, dataset, prune_tree 
     dataset[, "train"] <- ifelse(runif(nrow(dataset)) < 0.8, 1, 0)
     
     trainColNum <- grep("train", names(dataset))
-    typeColNum <- grep("cvd", names(dataset))
+    typeColNum <- grep("Quintiles", names(dataset))
     trainset <- dataset[dataset$train == 1, -trainColNum]
     testset <- dataset[dataset$train == 0, -trainColNum]
     
-    rpart_model <- rpart(cvd ~ ., data = trainset, method = "class")
+    rpart_model <- rpart(Quintiles ~ ., data = trainset, method = "class")
     
     if (prune_tree == FALSE) {
       rpart_test_predict <- predict(rpart_model, testset[, -typeColNum], type = "class")
-      fraction_correct[i] <- mean(rpart_test_predict == testset$cvd)
+      fraction_correct[i] <- mean(rpart_test_predict == testset$Quintiles)
     } else {
       opt <- which.min(rpart_model$cptable[, "xerror"])
       cp <- rpart_model$cptable[opt, "CP"]
       pruned_model <- prune(rpart_model, cp)
       rpart_pruned_predict <- predict(pruned_model, testset[, -typeColNum], type = "class")
-      fraction_correct[i] <- mean(rpart_pruned_predict == testset$cvd)
+      fraction_correct[i] <- mean(rpart_pruned_predict == testset$Quintiles)
     }
   }
   return(fraction_correct)
