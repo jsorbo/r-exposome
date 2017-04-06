@@ -1,9 +1,6 @@
 ################################################################################
 # 1. install packages, load libraries
 
-install.packages("rpart")
-install.packages("rpart.plot")
-
 library(rpart)
 library(rpart.plot)
 
@@ -154,7 +151,7 @@ merged$cvd <- sapply(merged$Quintiles, as.factor)
 dataset <- merged[,c("b_1999", "b_2000", "averagesmoke1996to2000", "percent2004diabetes",
                      "ageadjustedpercent2004diabetes", "percentobesity2004", "ageadjustedpercentobesity2004", 
                      "percentleisuretimephysicalinactivityprevalence2004",
-                     "ageadjustedpercentleisuretimephysicalinactivityprevalence2004", "PH_SODA", "cvd")]
+                     "ageadjustedpercentleisuretimephysicalinactivityprevalence2004", "PH_SODA", "Quintiles")]
 
 # dataset 2 is selected from pca after eliminating raw quantity variables
 
