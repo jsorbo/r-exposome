@@ -1,10 +1,3 @@
-?quantile
-
-# https://stackoverflow.com/questions/7508229/how-to-create-a-column-with-a-quartile-rank
-quints <- within(merged, quintile <- as.integer(cut(educationHighSchoolOrAboveRate, quantile(educationHighSchoolOrAboveRate, probs=0:5/5), include.lowest=TRUE)))
-
-quints
-
 append_ntile_column <- function(df, column, n) {
   df <- within(df, new_quintile <- as.integer(cut(df[,column], quantile(df[,column], probs=0:n/n), include.lowest=TRUE)))
   new_col_name <- paste0(n, "tile.", column)
@@ -38,13 +31,6 @@ convert_vector_of_columns_to_binary <- function(df, columns) {
   return(df)
 }
 
-
-
-merged <- append_quintile_column(merged, "educationHighSchoolOrAboveRate")
-merged <- convert_quintile_to_binary(merged, "5tile.educationHighSchoolOrAboveRate")
-merged
-
-
 merged <- convert_vector_of_columns_to_binary(merged, c("b_1999", "b_2000", "averagesmoke1996to2000", "percent2004diabetes",
                                                            "ageadjustedpercent2004diabetes", "percentobesity2004", "ageadjustedpercentobesity2004", 
                                                            "percentleisuretimephysicalinactivityprevalence2004",
@@ -73,5 +59,3 @@ merged <- convert_vector_of_columns_to_binary(merged, c("educationHighSchoolOrAb
                                                         "ageadjustedpercent2004diabetes"))
 
 arulesdataset <- convert_quintile_to_binary(merged, "Quintiles")
-
-
