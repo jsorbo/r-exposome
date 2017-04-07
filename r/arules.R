@@ -54,6 +54,14 @@ arulesdataset <- arulesdataset[,c("5tile.b_1999.1",
                                   "Quintiles.4",
                                   "Quintiles.5")]
 
+arulesMatrix <- data.matrix(arulesdataset, rownames.force = FALSE)
+
+arulesMatrix
+
+trans <- as(arulesMatrix, "transactions")
+
+rules <- apriori(trans, parameter = list(support=0.01, confidence=0.5))
+
 install.packages(c("arules", "arulesViz"))
 
 library(arules)
