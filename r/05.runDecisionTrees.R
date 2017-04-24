@@ -2,7 +2,8 @@
 # 5. build decision trees
 
 # build model
-rpart_model <- rpart(cvd ~ ., data = trainset, method = "class")
+ctrl = rpart.control(maxdepth=3)
+rpart_model <- rpart(Quintiles ~ ., data = trainset, method = "class", control=ctrl)
 
 # plot tree
 rpart.plot(rpart_model)
