@@ -1,8 +1,12 @@
 ################################################################################
-# 1. install packages, load libraries
+# load libraries
 
 library(rpart)
 library(rpart.plot)
 
 library(arules)
 library(arulesViz)
+
+library(ggplot2)
+
+library(FSelector)

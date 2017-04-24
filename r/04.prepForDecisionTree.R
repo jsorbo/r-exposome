@@ -21,5 +21,5 @@ trainset <- trainset[,-trainColNum]
 testset <- testset[,-trainColNum]
 
 # get column index of predicted variable
-typeColNum <- grep("Quintiles", names(dataset))
+typeColNum <- grep("cvd", names(dataset))
 
