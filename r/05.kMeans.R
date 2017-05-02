@@ -1,15 +1,25 @@
-convert.to.factors <- function (df, colnames) {
-  for (colname in colnames) {
-    df[colname] <- lapply(df[colname], as.factor)
-  }
-  return(df)
-}
-
 merged <- convert.to.factors(merged, column.list.pca.5tiles)
 
-kMeansDataSet <- merged[, c(column.list.pca, "cvd")]
+kMeansDataSet <- merged[, c(column.list.pca.5tiles, "cvd")]
+
+merged <- convert.to.factors(merged, column.list.paraclique.5tiles)
+
+kMeansDataSet <- merged[, c(column.list.paraclique.5tiles, "cvd")]
+
+################################################################################
+# chi squared
 
 weights <- chi.squared(cvd ~ ., kMeansDataSet)
+
+################################################################################
+# symmetrical uncertainty
+
+weights <- symmetrical.uncertainty(cvd ~ ., kMeansDataSet)
+
+################################################################################
+# gain ratio
+
+weights <- gain.ratio(cvd ~ ., kMeansDataSet)
 
 subset <- cutoff.k(weights, 5)
 

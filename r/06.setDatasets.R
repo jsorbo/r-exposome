@@ -71,5 +71,7 @@ dataset <- merged[,c("5tile.educationHighSchoolOrAboveRate",
                      "5tile.fullServiceRestaurantsPer1000",
                      "cvd")]
 
-dataset <- kMeansDataSet[which(kMeansDataSet$clusterNum == 3), c(column.list.pca, "cvd")]
+dataset <- merged[, c(column.list.paraclique.5tiles, "cvd")]
+
+dataset <- kMeansDataSet[which(kMeansDataSet$clusterNum == 3), c(column.list.paraclique.5tiles, "cvd")]
 
