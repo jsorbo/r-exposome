@@ -1,8 +1,42 @@
 \begin{thebibliography}{1}
 
+\bibitem{kershenbaum}
+A.~Kershenbaum, M.~Langston, R.~Levine, A.~Saxton, T.~Oyana, B.~Kilbourne,
+  G.~Rogers, L.~Gittner, S.~Baktash, P.~Matthews-Juarez, and P.~Juarez,
+  ``Exploration of preterm birth rates using the public health exposome
+  database and computational analysis methods,'' {\em International Journal of
+  Environmental Research and Public Health}, vol.~11, pp.~12346--12366, 11
+  2014.
+
+\bibitem{juarez}
+P.~Juarez, P.~Matthews-Juarez, D.~Hood, W.~Im, R.~Levine, B.~Kilbourne,
+  M.~Langston, M.~Al-Hamdan, W.~Crosson, M.~Estes, S.~Estes, V.~Agboto,
+  P.~Robinson, S.~Wilson, and M.~Lichtveld, ``The public health exposome: A
+  population-based, exposure science approach to health disparities research,''
+  {\em International Journal of Environmental Research and Public Health},
+  vol.~11, pp.~12866--12895, 12 2014.
+
+\bibitem{bramer}
+M.~Bramer, {\em {Principles of Data Mining}}.
+\newblock 2013.
+
+\bibitem{aggarwal}
+C.~C. Aggarwal, {\em {Data Mining: The Textbook}}.
+\newblock 2015.
+
 \bibitem{datta}
 S.~Datta, {\em A Multi-Stage Decision Algorithm for Rule Generation for
   Minority Class}.
 \newblock PhD thesis, Texas Tech University, Lubbock, TX, 8 2014.
+
+\bibitem{fselector}
+P.~Romanski and L.~Kotthoff, ``Package `{FSelector}'.'' Available at
+  \url{https://cran.r-project.org/web/packages/FSelector/FSelector.pdf}
+  (2017/04/23).
+
+\bibitem{hartigan}
+J.~A. Hartigan and M.~A. Wong, ``Algorithm {AS} 136: A k-means clustering
+  algorithm,'' {\em Journal of the Royal Statistical Society. Series C (Applied
+  Statistics)}, vol.~28, no.~1, pp.~100--108, 1979.
 
 \end{thebibliography}

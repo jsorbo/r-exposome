@@ -44,6 +44,8 @@
 
 %\usepackage{url}
 
+\usepackage{hyperref}
+
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor Bernaille Teixeira Akodkenou Soule Salamatian}
 
@@ -73,7 +75,7 @@ and areas of future work are listed.
 \section{Data}
 
 The Exposome data were provided by the Exposome research group and consisted of 3,125 data points representing county and parish units across the
-United States. The data were provided in two files: the independent variables file and the dependent variables file.
+United States. The data are described in \cite{kershenbaum} and \cite{juarez}. The data were provided in two files: the independent variables file and the dependent variables file.
 
 The independent variables file contained data in 63 attributes: 3 unique identifiers including a string attribute consisting of the county and state name;
 and 60 numeric attributes consisting of various data aggregated at the county level, such as population, bank offices, housing unit values, per capita income,
@@ -85,7 +87,9 @@ disease (CVD) death; and an attribute containing the quintile of the age-adjuste
 \section{Methodology}
 
 A pipeline was developed to load, clean, merge, and preprocess the data and to train an ensemble learning model to predict the
-CVD rate. Based on \cite{datta}, the ensemble learning model combined clustering, decision trees, and association mining. The pipeline was written
+CVD rate. Ensemble learning methods combine multiple data mining methods with the hope that a greater predictive accuracy will be achieved. \cite{bramer}, \cite{aggarwal}
+
+Based on \cite{datta}, the ensemble learning model combined clustering, decision trees, and association mining. The pipeline was written
 in the R language to provide for potential reuse and adaptation by members of the Exposome research group.
 
 \subsection{Data Loading and Conversions}
@@ -108,12 +112,12 @@ The Exposome data were grouped into subsets for model training and evaluation. T
 consisted of 10 attributes identified as a paraclique by members of the Exposome group. The second subset, hereafter referred to as ``data set 2,"
 included all 23 statistical attributes from the independent attributes file.
 
-Some feature selection techniques were applied to data set 2: the ${\chi}^2$ test, symmetrical uncertainty, and gain ratio. The data sets resulting
+Some feature selection techniques were applied to data set 2: the ${\chi}^2$ test, symmetrical uncertainty, and gain ratio, all described in \cite{fselector}. The data sets resulting
 from these methods are hereafter referred to ``data set 2a," ``data set 2b," and ``data set 2c" respectively.
 
 \subsection{Data Modeling}
 
-K-Means clustering was applied to the paraclique data. 3 clusters were found, and each data point was labeled with the cluster id 1-3.
+K-Means clustering (described in \cite{hartigan}) was applied to the paraclique data. 3 clusters were found, and each data point was labeled with the cluster id 1-3.
 
 Decision trees using recursive partitioning were trained against each cluster. The first tree is shown in Figure~\ref{decision.tree.01}.
 
@@ -154,6 +158,6 @@ The apriori association mining algorithm was run against the data.
 % 4. pdflatex traffic-classification.tex (again)
 
 \bibliographystyle{ieeetr}
-\bibliography{datta}
+\bibliography{datta,kershenbaum,juarez,fselector,hartigan,bramer,aggarwal}
 
 \end{document}
