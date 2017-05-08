@@ -39,4 +39,8 @@ J.~A. Hartigan and M.~A. Wong, ``Algorithm {AS} 136: A k-means clustering
   algorithm,'' {\em Journal of the Royal Statistical Society. Series C (Applied
   Statistics)}, vol.~28, no.~1, pp.~100--108, 1979.
 
+\bibitem{quinlan}
+J.~Quinlan, ``Simplifying decision trees,'' {\em International Journal of
+  Man-Machine Studies}, vol.~27, no.~3, pp.~221 -- 234, 1987.
+
 \end{thebibliography}

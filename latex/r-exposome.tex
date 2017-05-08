@@ -119,7 +119,9 @@ from these methods are hereafter referred to ``data set 2a," ``data set 2b," and
 
 K-Means clustering (described in \cite{hartigan}) was applied to the paraclique data. 3 clusters were found, and each data point was labeled with the cluster id 1-3.
 
-Decision trees using recursive partitioning were trained against each cluster. The first tree is shown in Figure~\ref{decision.tree.01}.
+Decision trees using recursive partitioning (\cite{rpart}) were trained against each cluster. The first tree is shown in Figure~\ref{decision.tree.01}.
+
+Each tree was simplified using cost-complexity pruning as described in \cite{quinlan}.
 
 The apriori association mining algorithm was run against the data.
 
@@ -158,6 +160,6 @@ The apriori association mining algorithm was run against the data.
 % 4. pdflatex traffic-classification.tex (again)
 
 \bibliographystyle{ieeetr}
-\bibliography{datta,kershenbaum,juarez,fselector,hartigan,bramer,aggarwal}
+\bibliography{datta,kershenbaum,juarez,fselector,hartigan,bramer,aggarwal,quinlan,rpart}
 
 \end{document}

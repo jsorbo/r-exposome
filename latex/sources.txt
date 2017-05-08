@@ -13,13 +13,13 @@ XXX go into specifics on clustering methods and provide sources describing their
 XXX kmeans method - stats package manual - TBD
 XXX https://stat.ethz.ch/R-manual/R-devel/library/stats/html/kmeans.html
 
-decision trees
+xxx decision trees
 
 linearizing??
 https://www.sciencedirect.com/science/article/pii/S0020737387800536
 https://en.wikipedia.org/wiki/Decision_tree#cite_ref-1
 
-specific decision trees and their merits
+xxx specific decision trees and their merits
 
 XXX ensemble methods and their advantages
 
