@@ -10,3 +10,5 @@ install.packages("kernlab")
 install.packages("arulesViz")
 
 install.packages("FSelector")
+
+install.packages("rattle")

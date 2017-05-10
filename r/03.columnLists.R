@@ -16,7 +16,7 @@ column.list.paraclique.5tiles = c("q.5.quantile.b_1999",
                                   "q.5.quantile.ageadjustedpercentleisuretimephysicalinactivityprevalence2004",
                                   "q.5.quantile.PH_SODA")
 
-column.list.pca = c("educationHighSchoolOrAboveRate", 
+column.list.all = c("educationHighSchoolOrAboveRate", 
                     "ageadjustedpercentleisuretimephysicalinactivityprevalence2004", 
                     "percentleisuretimephysicalinactivityprevalence2004", 
                     "perCapitaIncome", 
@@ -40,7 +40,7 @@ column.list.pca = c("educationHighSchoolOrAboveRate",
                     "fastFoodRestaurantsPer1000",
                     "fullServiceRestaurantsPer1000")
 
-column.list.pca.5tiles = c("q.5.quantile.educationHighSchoolOrAboveRate", 
+column.list.all.5tiles = c("q.5.quantile.educationHighSchoolOrAboveRate", 
                            "q.5.quantile.ageadjustedpercentleisuretimephysicalinactivityprevalence2004", 
                            "q.5.quantile.percentleisuretimephysicalinactivityprevalence2004", 
                            "q.5.quantile.perCapitaIncome", 

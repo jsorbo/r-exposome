@@ -1,5 +1,8 @@
 \documentclass[conference,compsoc]{IEEEtran}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+
 % Some very useful LaTeX packages include:
 % (uncomment the ones you want to load)
 
@@ -46,8 +49,14 @@
 
 \usepackage{hyperref}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Hyphenation
+
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor Bernaille Teixeira Akodkenou Soule Salamatian}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document body
 
 \begin{document}
 
@@ -72,10 +81,30 @@ The Exposome data are described; the goals of the analytic pipeline are defined;
 cleaning, and merging are detailed; feature selection and data modeling are detailed; model evaluation and results are discussed;
 and areas of future work are listed.
 
+\section{Background}
+
+The exposome is the concept of the complete set of one's lifetime exposures. \cite{juarez} In recent years public health investigators have gained 
+unprecedented access to high volume, high dimension data sets combined from multiple, diverse sources,
+enabling the investigators to measure elements of the exposome driving health disparities. The exposome data,
+when analyzed in large data sets, allows investigators to uncover previously unknown relationships between factors affecting 
+health outcomes such as preterm birth rates \cite{kershenbaum},
+obesity \cite{raman}, and cardiovascular disease (CVD).
+
+With the advent of such large data sets and the increased need to conduct analyses against them comes the increased pain of conducting such analysis work manually.
+Running data analysis processes manually can lead to slower throughput and increased rates of human error. The need to automate analytic processes increases further
+as the sophistication of the analysis rises and investigators need to reproduce the results.
+
+Numerous data mining algorithms can be applied to the exposome data to help investigators gain insights into the relationships among the data or to confirm known
+relationships. Clustering methods can uncover groupings among data points, decision trees can find rule sets to predict outcomes, and association rules mining can
+show co-occurrences among the data. When combined together as ensemble learning methods, it is hoped that a greater predictive accuracy may be achieved than
+if the methods were used individually. \cite{bramer}, \cite{aggarwal}
+
 \section{Data}
 
-The Exposome data were provided by the Exposome research group and consisted of 3,125 data points representing county and parish units across the
-United States. The data are described in \cite{kershenbaum} and \cite{juarez}. The data were provided in two files: the independent variables file and the dependent variables file.
+The exposome data were provided by the Exposome research group at Texas Tech University 
+and consisted of 3,125 data points representing county and parish units across the United States. 
+The data attributes can be grouped into several categories, such as social factors, health factors, and environmental factors.
+The data were provided in two files: the independent variables file and the dependent variables file.
 
 The independent variables file contained data in 63 attributes: 3 unique identifiers including a string attribute consisting of the county and state name;
 and 60 numeric attributes consisting of various data aggregated at the county level, such as population, bank offices, housing unit values, per capita income,
@@ -87,14 +116,12 @@ disease (CVD) death; and an attribute containing the quintile of the age-adjuste
 \section{Methodology}
 
 A pipeline was developed to load, clean, merge, and preprocess the data and to train an ensemble learning model to predict the
-CVD rate. Ensemble learning methods combine multiple data mining methods with the hope that a greater predictive accuracy will be achieved. \cite{bramer}, \cite{aggarwal}
-
-Based on \cite{datta}, the ensemble learning model combined clustering, decision trees, and association mining. The pipeline was written
+CVD rate. Based on \cite{datta}, the ensemble learning model combined clustering and decision trees. The pipeline was written
 in the R language to provide for potential reuse and adaptation by members of the Exposome research group.
 
 \subsection{Data Loading and Conversions}
 
-The Exposome data were loaded from the independent and dependent attributes files in comma-separated values (CSV) format.
+The exposome data were loaded from the independent and dependent attributes files in comma-separated values (CSV) format.
 
 Many of the attribute names in the files were based on codes in the original data sources, \textit{e.g.}, ``AGE030200D," ``HEA010200D," ``HSG680200D;"
 such attributes were given friendly names based on a data dictionary provided by the Exposome group.
@@ -108,28 +135,75 @@ and the lower 4 quintiles were set to 0.
 
 \subsection{Feature Selection}
 
-The Exposome data were grouped into subsets for model training and evaluation. The first subset, hereafter referred to as ``data set 1,"
-consisted of 10 attributes identified as a paraclique by members of the Exposome group. The second subset, hereafter referred to as ``data set 2,"
+The exposome data were grouped into subsets for model training and evaluation. The first subset, hereafter referred to as ``data set 1,"
+consisted of 10 attributes identified as a paraclique by members of the Exposome research group. The second subset, hereafter referred to as ``data set 2,"
 included all 23 statistical attributes from the independent attributes file.
 
-Some feature selection techniques were applied to data set 2: the ${\chi}^2$ test, symmetrical uncertainty, and gain ratio, all described in \cite{fselector}. The data sets resulting
+Some feature selection techniques were applied to data set 2: the ${\chi}^2$ test, symmetrical uncertainty, and gain ratio, 
+all described in \cite{fselector}. The data sets resulting
 from these methods are hereafter referred to ``data set 2a," ``data set 2b," and ``data set 2c" respectively.
 
 \subsection{Data Modeling}
 
-K-Means clustering (described in \cite{hartigan}) was applied to the paraclique data. 3 clusters were found, and each data point was labeled with the cluster id 1-3.
+K-Means clustering \cite{hartigan} was applied to the paraclique data with k = 3, and each data point was labeled with the cluster id 1-3.
 
-Decision trees using recursive partitioning (\cite{rpart}) were trained against each cluster. The first tree is shown in Figure~\ref{decision.tree.01}.
+Decision trees using recursive partitioning \cite{rpart} were trained against each cluster.
 
 Each tree was simplified using cost-complexity pruning as described in \cite{quinlan}.
 
-The apriori association mining algorithm was run against the data.
-
 \section{Results}
 
-\section{Remaining Work}
+The first tree was trained against the full paraclique data set without clustering. This tree is shown in Figure~\ref{decision.tree.01}.
+The tree was found to have a predictive accuracy of 0.8203; a confusion matrix is shown in Table~\ref{table.confusion.matrix.01}.
+
+An attempt was made to prune the tree using cost-complexity pruning based on the lowest cross-validation error. This pruning attempt did not result in
+any changes to the tree. The process of training both unpruned and pruned trees was repeated 50 times. For the pruned trees, 
+the mean predictive accuracy was 0.8382 with a standard deviation of 0.0130, whereas
+the pruned trees gave a mean predictive accuracy of 0.8368 with a standard deviation of 0.0139.
+
+The second tree was trained against the statistical data set without clustering and is shown in Figure~\ref{decision.tree.02}. This tree
+had a predictive accuracy of 0.8835; a confusion matrix is shown in Table~\ref{table.confusion.matrix.02}.
+
+Again a pruning attempt was made, and the tree was unchanged. The repetition process was applied; for the pruned trees, the mean accuracy was 0.8887 
+with a standard deviation of 0.0105,
+whereas the pruned trees gave a mean accuracy of 0.8891 with a standard deviation of 0.0101.
+
+The two trees were unwieldy for practical use, so feature selection methods (${\chi}^2$, symmetrical uncertainty, and gain ratio) were applied to the data sets
+and the trees were created again. The accuracy resulting from each method for data set 1 is shown in Table~\ref{table.feature.reduction.accuracy.01},
+and the accuracy for data set 2 is in Table~\ref{table.feature.reduction.accuracy.02}.
+
+In either case, the highest levels of accuracy achieved following the application of the feature selection methods was only negligably different
+from the accuracy obtained by training a tree against the full feature set.
+
+K-means was applied to Data Set 1 for k = 3, and a decision tree was trained on each of the three clusters to a maximum tree height of 3. 
+The accuracy for each of the three resulting trees is listed in Table~\ref{table.kmeans.accuracy.01}.
+These steps were repeated with Data Set 2; the accuracy is listed in Table~\ref{table.kmeans.accuracy.02}.
+
+The decision trees created from the 3 clusters in Data Set 2 were limited to a maximum depth of 3 levels. These trees are shown in 
+Figure~\ref{decision.tree.02.1}, Figure~\ref{decision.tree.02.2}, and Figure~\ref{decision.tree.02.3}.
+
+Note any interesting outputs of the trees
+
+\section{Future Work}
+
+The ensemble method described in \cite{datta} included a step where the decision tree's depths were limited and then the a priori association mining algorithm
+was run against the data falling into the leaf nodes of the tree. Therefore a continuation of the work described in this paper should include an association
+mining step. In order to apply a priori against the data, one should complete a few major steps: first, the data should be converted into item sets for 
+input into a priori; second, the decision tree should be ``linearized" \cite{quinlan} to obtain production rules; and third, the data should be labeled with 
+the corresponding production rules. Upon completion of these steps, one could run a priori against each subset, select the relevant association rules, and
+combine those association rules with the decision tree rules to measure their performance together.
+
+Some of this work has been completed: the pipeline contains optional steps for converting the original exposome data into quintiles and from there
+into binary incidence matrices that can be passed to the a priori algorithm.
 
 \section{Conclusion}
+
+The shortcomings of this project's output underscore the need for a programmer to work closely with domain experts when conducting data modeling work:
+as in the case of this project, the programmer may focus much attention on the execution of the technical work, whereas only an expert in the
+problem domain can help the programmer determine whether the results will fulfill any practical needs.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Figures
 
 \begin{figure}[!t]
 \centering
@@ -138,7 +212,133 @@ The apriori association mining algorithm was run against the data.
 \label{decision.tree.01}
 \end{figure}
 
-% references section
+\begin{figure}[!t]
+\centering
+\includegraphics[width=3.25in]{decision-tree-02-all-no-clustering.png}
+\caption{Decision tree based on statistical features, no clustering}
+\label{decision.tree.02}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=3.25in]{decision-tree-02-cluster-1.png}
+\caption{Decision tree based on statistical features, no clustering}
+\label{decision.tree.02.1}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=3.25in]{decision-tree-02-cluster-2.png}
+\caption{Decision tree based on statistical features, no clustering}
+\label{decision.tree.02.2}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=3.25in]{decision-tree-02-cluster-3.png}
+\caption{Decision tree based on statistical features, no clustering}
+\label{decision.tree.02.3}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tables
+
+\begin{table}[!t]
+\renewcommand{\arraystretch}{1.3}
+\caption{Confusion Matrix for Tree 1}
+\label{table.confusion.matrix.01}
+\centering
+\begin{tabular}{ccc}
+\hline
+ & True &  \\
+Predicted & 0 & 1 \\
+0 & 459 & 97 \\
+1 & 11 & 34 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[!t]
+\renewcommand{\arraystretch}{1.3}
+\caption{Confusion Matrix for Tree 2}
+\label{table.confusion.matrix.02}
+\centering
+\begin{tabular}{ccc}
+\hline
+ & True &  \\
+Predicted & 0 & 1 \\
+0 & 445 & 45 \\
+1 & 25 & 86 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[!t]
+\renewcommand{\arraystretch}{1.3}
+\caption{Accuracy from Feature Reduction Methods on Data Set 1}
+\label{table.feature.reduction.accuracy.01}
+\centering
+\begin{tabular}{ccc}
+\hline
+Method & Unpruned Accuracy & Pruned Accuracy \\
+\hline 
+${\chi}^2$ & 0.8040 & 0.7995 \\
+Symmetrical Uncertainty & 0.8317 & 0.8316 \\
+Gain Ratio & 0.8317 & 0.8316 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[!t]
+\renewcommand{\arraystretch}{1.3}
+\caption{Accuracy from Feature Reduction Methods on Data Set 2}
+\label{table.feature.reduction.accuracy.02}
+\centering
+\begin{tabular}{ccc}
+\hline
+Method & Unpruned Accuracy & Pruned Accuracy \\
+\hline 
+${\chi}^2$ & 0.8892 & 0.8893 \\
+Symmetrical Uncertainty & 0.8887 & 0.8888 \\
+Gain Ratio & 0.8887 & 0.8888 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[!t]
+\renewcommand{\arraystretch}{1.3}
+\caption{Accuracy of Trees from K-means Clusters on Data Set 1}
+\label{table.kmeans.accuracy.01}
+\centering
+\begin{tabular}{ccc}
+\hline
+Cluster \# & Unpruned Accuracy & Pruned Accuracy \\
+\hline 
+1 & 0.8190 & 0.8189 \\
+2 & 0.8438 & 0.8441 \\
+3 & 0.8456 & 0.8407 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[!t]
+\renewcommand{\arraystretch}{1.3}
+\caption{Accuracy of Trees from K-means Clusters on Data Set 2}
+\label{table.kmeans.accuracy.02}
+\centering
+\begin{tabular}{ccc}
+\hline
+Cluster \# & Unpruned Accuracy & Pruned Accuracy \\
+\hline 
+1 & 0.8669 & 0.8690 \\
+2 & 0.7983 & 0.7919 \\
+3 & 0.9919 & 0.9919 \\
+\hline
+\end{tabular}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% References
 
 % can use a bibliography generated by BibTeX as a .bbl file
 % BibTeX documentation can be easily obtained at:
@@ -160,6 +360,6 @@ The apriori association mining algorithm was run against the data.
 % 4. pdflatex traffic-classification.tex (again)
 
 \bibliographystyle{ieeetr}
-\bibliography{datta,kershenbaum,juarez,fselector,hartigan,bramer,aggarwal,quinlan,rpart}
+\bibliography{datta,kershenbaum,juarez,fselector,hartigan,bramer,aggarwal,quinlan,rpart,raman}
 
 \end{document}

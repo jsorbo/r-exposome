@@ -8,10 +8,10 @@ dataset <- merged[,c("b_1999", "b_2000", "averagesmoke1996to2000", "percent2004d
                      "percentleisuretimephysicalinactivityprevalence2004",
                      "ageadjustedpercentleisuretimephysicalinactivityprevalence2004", "PH_SODA", "Quintiles")]
 
-dataset <- merged[,c("5tile.b_1999", "5tile.b_2000", "5tile.averagesmoke1996to2000", "5tile.percent2004diabetes",
-                     "5tile.ageadjustedpercent2004diabetes", "5tile.percentobesity2004", 
-                     "5tile.ageadjustedpercentobesity2004", "5tile.percentleisuretimephysicalinactivityprevalence2004",
-                     "5tile.ageadjustedpercentleisuretimephysicalinactivityprevalence2004", "5tile.PH_SODA", "cvd")]
+dataset <- merged[,c("q.5.quantile.b_1999", "q.5.quantile.b_2000", "q.5.quantile.averagesmoke1996to2000", "q.5.quantile.percent2004diabetes",
+                     "q.5.quantile.ageadjustedpercent2004diabetes", "q.5.quantile.percentobesity2004", 
+                     "q.5.quantile.ageadjustedpercentobesity2004", "q.5.quantile.percentleisuretimephysicalinactivityprevalence2004",
+                     "q.5.quantile.ageadjustedpercentleisuretimephysicalinactivityprevalence2004", "q.5.quantile.PH_SODA", "cvd")]
 
 # dataset 2 is selected from pca after eliminating raw quantity variables
 
@@ -40,38 +40,41 @@ dataset <- merged[,c("educationHighSchoolOrAboveRate",
 
 # dataset 2 is selected from pca after eliminating raw quantity variables
 
-dataset <- merged[,c(column.list.pca.5tiles, "cvd")]
+dataset <- merged[,c(column.list.all.5tiles, "cvd")]
 
 # dataset 3 is selected from pca after eliminating raw quantity variables
 
-dataset <- merged[,c("5tile.sampleMedianHousingUnitValue", 
-                     "5tile.unemploymentRate", 
-                     "5tile.populationPerSquareMile", 
+dataset <- merged[,c("q.5.quantile.sampleMedianHousingUnitValue", 
+                     "q.5.quantile.unemploymentRate", 
+                     "q.5.quantile.populationPerSquareMile", 
                      "cvd")]
 
-dataset <- merged[,c("5tile.educationHighSchoolOrAboveRate", 
-                     "5tile.ageadjustedpercentleisuretimephysicalinactivityprevalence2004", 
-                     "5tile.percentleisuretimephysicalinactivityprevalence2004", 
-                     "5tile.perCapitaIncome", 
-                     "5tile.medianHouseholdIncome2000", 
-                     "5tile.peopleInPovertyRate", 
-                     "5tile.ageadjustedpercentobesity2004", 
-                     "5tile.perCapitaPersonalIncome", 
-                     "5tile.percentobesity2004", 
-                     "5tile.AvgDailyMaxAirTemperatureF", 
-                     "5tile.AvgDailyMinAirTemperatureF", 
-                     "5tile.AvgDailyMaxHeatIndexF", 
-                     "5tile.AvgDayLandSurfaceTemperatureF", 
-                     "5tile.AvgDailyPrecipitationmm", 
-                     "5tile.AvgFineParticulateMatterµgm", 
-                     "5tile.percent2004diabetes", 
-                     "5tile.populationMedianAgeApril2000", 
-                     "5tile.ageadjustedpercent2004diabetes",
-                     "5tile.fastFoodRestaurantsPer1000",
-                     "5tile.fullServiceRestaurantsPer1000",
+dataset <- merged[,c("q.5.quantile.educationHighSchoolOrAboveRate", 
+                     "q.5.quantile.ageadjustedpercentleisuretimephysicalinactivityprevalence2004", 
+                     "q.5.quantile.percentleisuretimephysicalinactivityprevalence2004", 
+                     "q.5.quantile.perCapitaIncome", 
+                     "q.5.quantile.medianHouseholdIncome2000", 
+                     "q.5.quantile.peopleInPovertyRate", 
+                     "q.5.quantile.ageadjustedpercentobesity2004", 
+                     "q.5.quantile.perCapitaPersonalIncome", 
+                     "q.5.quantile.percentobesity2004", 
+                     "q.5.quantile.AvgDailyMaxAirTemperatureF", 
+                     "q.5.quantile.AvgDailyMinAirTemperatureF", 
+                     "q.5.quantile.AvgDailyMaxHeatIndexF", 
+                     "q.5.quantile.AvgDayLandSurfaceTemperatureF", 
+                     "q.5.quantile.AvgDailyPrecipitationmm", 
+                     "q.5.quantile.AvgFineParticulateMatterµgm", 
+                     "q.5.quantile.percent2004diabetes", 
+                     "q.5.quantile.populationMedianAgeApril2000", 
+                     "q.5.quantile.ageadjustedpercent2004diabetes",
+                     "q.5.quantile.fastFoodRestaurantsPer1000",
+                     "q.5.quantile.fullServiceRestaurantsPer1000",
                      "cvd")]
 
 dataset <- merged[, c(column.list.paraclique.5tiles, "cvd")]
 
 dataset <- kMeansDataSet[which(kMeansDataSet$clusterNum == 3), c(column.list.paraclique.5tiles, "cvd")]
+dataset <- kMeansDataSet[which(kMeansDataSet$clusterNum == 3), c(column.list.all.5tiles, "cvd")]
 
+
+dataset <- kMeansDataSet[, c(column.list.feature.reduction, "cvd")]

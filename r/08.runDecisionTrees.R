@@ -6,7 +6,10 @@ ctrl = rpart.control(maxdepth=3)
 rpart_model <- rpart(cvd ~ ., data = trainset, method = "class", control=ctrl)
 
 # plot tree
-rpart.plot(rpart_model)
+# rpart.plot(rpart_model)
+
+# this is a better-looking option
+fancyRpartPlot(rpart_model, sub="")
 
 # try against test data
 rpart_predict <- predict(rpart_model, testset[, -typeColNum], type = "class")
@@ -33,19 +36,19 @@ cp <- rpart_model$cptable[opt, "CP"]
 pruned_model <- prune(rpart_model, cp)
 
 # plot
-rpart.plot(pruned_model)
+fancyRpartPlot(pruned_model, sub="")
 
 # find proportion of correct predictions using test set
 rpart_pruned_predict <- predict(pruned_model, testset[, -typeColNum], type = "class")
 mean(rpart_pruned_predict == testset$cvd)
 
 # 50 runs without pruning
-unpruned_set <- multiple.runs.classification(0.8, 50, dataset, "cvd", cvd ~ .)
+unpruned_set <- multiple.runs.classification(0.8, 50, dataset, "cvd", cvd ~ ., maxDepth=3)
 mean(unpruned_set)
 sd(unpruned_set)
 
 # 50 runs with pruning
-pruned_set <- multiple.runs.classification(0.8, 50, dataset, "cvd", cvd ~ ., prune_tree = TRUE)
+pruned_set <- multiple.runs.classification(0.8, 50, dataset, "cvd", cvd ~ ., prune_tree=TRUE, maxDepth=3)
 mean(pruned_set)
 sd(pruned_set)
 

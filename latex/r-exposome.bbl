@@ -1,4 +1,12 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{juarez}
+P.~Juarez, P.~Matthews-Juarez, D.~Hood, W.~Im, R.~Levine, B.~Kilbourne,
+  M.~Langston, M.~Al-Hamdan, W.~Crosson, M.~Estes, S.~Estes, V.~Agboto,
+  P.~Robinson, S.~Wilson, and M.~Lichtveld, ``The public health exposome: A
+  population-based, exposure science approach to health disparities research,''
+  {\em International Journal of Environmental Research and Public Health},
+  vol.~11, pp.~12866--12895, 12 2014.
 
 \bibitem{kershenbaum}
 A.~Kershenbaum, M.~Langston, R.~Levine, A.~Saxton, T.~Oyana, B.~Kilbourne,
@@ -8,13 +16,9 @@ A.~Kershenbaum, M.~Langston, R.~Levine, A.~Saxton, T.~Oyana, B.~Kilbourne,
   Environmental Research and Public Health}, vol.~11, pp.~12346--12366, 11
   2014.
 
-\bibitem{juarez}
-P.~Juarez, P.~Matthews-Juarez, D.~Hood, W.~Im, R.~Levine, B.~Kilbourne,
-  M.~Langston, M.~Al-Hamdan, W.~Crosson, M.~Estes, S.~Estes, V.~Agboto,
-  P.~Robinson, S.~Wilson, and M.~Lichtveld, ``The public health exposome: A
-  population-based, exposure science approach to health disparities research,''
-  {\em International Journal of Environmental Research and Public Health},
-  vol.~11, pp.~12866--12895, 12 2014.
+\bibitem{raman}
+R.~Raman, ``Epigenetics and the exposomes: Obesity and beyond,'' {\em
+  International Journal of Nutrology}, vol.~6, no.~3, 2013.
 
 \bibitem{bramer}
 M.~Bramer, {\em {Principles of Data Mining}}.
@@ -38,6 +42,10 @@ P.~Romanski and L.~Kotthoff, ``Package `{FSelector}'.'' Available at
 J.~A. Hartigan and M.~A. Wong, ``Algorithm {AS} 136: A k-means clustering
   algorithm,'' {\em Journal of the Royal Statistical Society. Series C (Applied
   Statistics)}, vol.~28, no.~1, pp.~100--108, 1979.
+
+\bibitem{rpart}
+T.~Therneau and B.~Atkinson, ``Package `{rpart}'.'' Available at
+  \url{https://cran.r-project.org/web/packages/rpart/rpart.pdf} (2017/04/23).
 
 \bibitem{quinlan}
 J.~Quinlan, ``Simplifying decision trees,'' {\em International Journal of

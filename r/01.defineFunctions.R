@@ -45,7 +45,7 @@ convert.vector.of.columns.to.quintiles <- function(df, columns) {
 }
 
 # function to do multiple runs
-multiple.runs.classification <- function(train_fraction, n, dataset, classLabelColumn, formula, prune_tree = FALSE) {
+multiple.runs.classification <- function(train_fraction, n, dataset, classLabelColumn, formula, prune_tree=FALSE, maxDepth=100) {
   fraction_correct <- rep(NA, n)
   set.seed(42)
   
@@ -57,7 +57,8 @@ multiple.runs.classification <- function(train_fraction, n, dataset, classLabelC
     trainset <- dataset[dataset$train == 1, -trainColNum]
     testset <- dataset[dataset$train == 0, -trainColNum]
     
-    rpart_model <- rpart(formula, data = trainset, method = "class")
+    ctrl = rpart.control(maxdepth=maxDepth)
+    rpart_model <- rpart(formula, data = trainset, method = "class", control=ctrl)
     
     if (prune_tree == FALSE) {
       rpart_test_predict <- predict(rpart_model, testset[, -typeColNum], type = "class")
