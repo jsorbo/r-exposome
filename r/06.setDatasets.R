@@ -73,8 +73,12 @@ dataset <- merged[,c("q.5.quantile.educationHighSchoolOrAboveRate",
 
 dataset <- merged[, c(column.list.paraclique.5tiles, "cvd")]
 
-dataset <- kMeansDataSet[which(kMeansDataSet$clusterNum == 3), c(column.list.paraclique.5tiles, "cvd")]
-dataset <- kMeansDataSet[which(kMeansDataSet$clusterNum == 3), c(column.list.all.5tiles, "cvd")]
+dataset <- set.dataset.from.k.means(kMeansDataSet, 1, c(column.list.paraclique.5tiles, "cvd"))
+dataset <- set.dataset.from.k.means(kMeansDataSet, 2, c(column.list.paraclique.5tiles, "cvd"))
+dataset <- set.dataset.from.k.means(kMeansDataSet, 3, c(column.list.paraclique.5tiles, "cvd"))
 
+dataset <- set.dataset.from.k.means(kMeansDataSet, 1, c(column.list.all.5tiles, "cvd"))
+dataset <- set.dataset.from.k.means(kMeansDataSet, 2, c(column.list.all.5tiles, "cvd"))
+dataset <- set.dataset.from.k.means(kMeansDataSet, 3, c(column.list.all.5tiles, "cvd"))
 
 dataset <- kMeansDataSet[, c(column.list.feature.reduction, "cvd")]

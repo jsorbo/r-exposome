@@ -72,16 +72,38 @@ Email: jeffrey.s.sorbo@ttu.edu}}
 \maketitle
 
 \begin{abstract}
-Brief description of the work described in this paper.
+
+The exposome data used by the Exposome research group contains a high number of
+attributes that are aggregated to the county level and present investigators with
+challenges common to the analysis work of big data. This paper describes the
+automation using the R language of some analytic work against the exposome data through 
+an ensemble learning approach. Feature reduction methods and k-means clustering
+were applied to the data, and decision tree models were created. These models were then
+evaluated for their predictive accuracy.
+
 \end{abstract}
 
 \section{Introduction}
 
-The Exposome data are described; the goals of the analytic pipeline are defined; data loading,
-cleaning, and merging are detailed; feature selection and data modeling are detailed; model evaluation and results are discussed;
-and areas of future work are listed.
-
-\section{Background}
+% The Introduction is crucially important. By the time a referee has finished the Introduction, 
+% he's probably made an initial decision about whether to accept or reject the paper -- 
+% he'll read the rest of the paper looking for evidence to support his decision. A casual reader 
+% will continue on if the Introduction captivated him, and will set the paper aside otherwise. 
+% Again, the Introduction is crucially important.
+% 
+% Here is the Stanford InfoLab's patented five-point structure for Introductions. 
+% Unless there's a good argument against it, the Introduction should consist of five paragraphs 
+% answering the following five questions:
+% 
+% What is the problem?
+% Why is it interesting and important?
+% Why is it hard? (E.g., why do naive approaches fail?)
+% Why hasn't it been solved before? (Or, what's wrong with previous proposed solutions? How does mine differ?)
+% What are the key components of my approach and results? Also include any specific limitations.
+% 
+% Then have a final paragraph or subsection: "Summary of Contributions". It should list the major 
+% contributions in bullet form, mentioning in which sections they can be found. 
+% This material doubles as an outline of the rest of the paper, saving space and eliminating redundancy.
 
 The exposome is the concept of the complete set of one's lifetime exposures. \cite{juarez} In recent years public health investigators have gained 
 unprecedented access to high volume, high dimension data sets combined from multiple, diverse sources,
@@ -99,14 +121,17 @@ relationships. Clustering methods can uncover groupings among data points, decis
 show co-occurrences among the data. When combined together as ensemble learning methods, it is hoped that a greater predictive accuracy may be achieved than
 if the methods were used individually. \cite{bramer}, \cite{aggarwal}
 
+The remainder of this paper is organized as follows: the exposome paradigm and data mining applications
+are discussed; the exposome source data are described; the data modeling methodology is outlined;
+and the results are listed. Finally, some areas of future work are listed.
+
 \section{Data}
 
-The exposome data were provided by the Exposome research group at Texas Tech University 
-and consisted of 3,125 data points representing county and parish units across the United States. 
-The data attributes can be grouped into several categories, such as social factors, health factors, and environmental factors.
-The data were provided in two files: the independent variables file and the dependent variables file.
+The exposome data consisted of 3,125 data points representing county and parish units across the United States. 
+The data attributes can be grouped into several categories, such as social factors, health factors, and environmental factors,
+and were provided in two files: the independent variables file and the dependent variables file.
 
-The independent variables file contained data in 63 attributes: 3 unique identifiers including a string attribute consisting of the county and state name;
+The independent variables file contained 63 attributes: 3 unique identifiers including a string attribute consisting of the county and state name;
 and 60 numeric attributes consisting of various data aggregated at the county level, such as population, bank offices, housing unit values, per capita income,
 and average daily precipitation.
 
@@ -182,25 +207,84 @@ These steps were repeated with Data Set 2; the accuracy is listed in Table~\ref{
 The decision trees created from the 3 clusters in Data Set 2 were limited to a maximum depth of 3 levels. These trees are shown in 
 Figure~\ref{decision.tree.02.1}, Figure~\ref{decision.tree.02.2}, and Figure~\ref{decision.tree.02.3}.
 
-Note any interesting outputs of the trees
+\section{Conclusion}
+
+Numerous data preprocessing and analysis methods - cleaning, converting to quantiles, clustering, feature reduction,
+recursive partitioning, model evaluation - were applied to the exposome data files. All these methods were written in a collection of R
+scripts, reducing the tedium and error inherent in manual work and enabling the investigator to easily repeat,
+modify, or reuse any of the methods.
+
+The shortcomings of this project's results underscore the need for a programmer to work closely with domain experts when conducting data modeling work:
+as in the case of this project, the programmer may focus much attention on the execution of the technical work, whereas only an expert in the
+subject matter can help the programmer determine whether the results will fulfill any practical needs.
 
 \section{Future Work}
 
 The ensemble method described in \cite{datta} included a step where the decision tree's depths were limited and then the a priori association mining algorithm
 was run against the data falling into the leaf nodes of the tree. Therefore a continuation of the work described in this paper should include an association
 mining step. In order to apply a priori against the data, one should complete a few major steps: first, the data should be converted into item sets for 
-input into a priori; second, the decision tree should be ``linearized" \cite{quinlan} to obtain production rules; and third, the data should be labeled with 
+input into a priori; second, the decision tree should be transformed into a collection of production rules \cite{quinlan2}; and third, the data should be labeled with 
 the corresponding production rules. Upon completion of these steps, one could run a priori against each subset, select the relevant association rules, and
 combine those association rules with the decision tree rules to measure their performance together.
 
-Some of this work has been completed: the pipeline contains optional steps for converting the original exposome data into quintiles and from there
+Some of this work has been completed: the R pipeline contains optional steps for converting the original exposome data into quintiles and from there
 into binary incidence matrices that can be passed to the a priori algorithm.
 
-\section{Conclusion}
+\appendices
 
-The shortcomings of this project's output underscore the need for a programmer to work closely with domain experts when conducting data modeling work:
-as in the case of this project, the programmer may focus much attention on the execution of the technical work, whereas only an expert in the
-problem domain can help the programmer determine whether the results will fulfill any practical needs.
+\section{Independent Attributes in Paraclique Data (``Data Set 1")}
+
+ageadjustedpercent2004diabetes, 
+ageadjustedpercentleisuretimephysicalinactivityprevalence2004, 
+ageadjustedpercentobesity2004, 
+averagesmoke1996to2000,
+b\_1999,
+b\_2000,
+percent2004diabetes,
+percentleisuretimephysicalinactivityprevalence2004,
+percentobesity2004, 
+PH\_SODA
+
+\section{Attributes in Statistical Data (``Data Set 2")}
+
+ageadjustedpercent2004diabetes,
+ageadjustedpercentleisuretimephysicalinactivityprevalence2004, 
+ageadjustedpercentobesity2004, 
+AvgDailyMaxAirTemperatureF, 
+AvgDailyMaxHeatIndexF, 
+AvgDailyMinAirTemperatureF, 
+AvgDailyPrecipitationmm, 
+AvgDayLandSurfaceTemperatureF, 
+AvgFineParticulateMatterÂµgm, 
+educationHighSchoolOrAboveRate, 
+fastFoodRestaurantsPer1000,
+fullServiceRestaurantsPer1000,
+medianHouseholdIncome2000, 
+peopleInPovertyRate, 
+perCapitaIncome, 
+perCapitaPersonalIncome, 
+percent2004diabetes, 
+percentleisuretimephysicalinactivityprevalence2004, 
+percentobesity2004, 
+populationMedianAgeApril2000, 
+populationPerSquareMile, 
+sampleMedianHousingUnitValue, 
+unemploymentRate
+
+\section*{Acknowledgment}
+
+To my adviser, Prof. Susan Mengel of the Computer Science Department at Texas Tech University, whose guidance helped shape
+my project experience into an enjoyable and enlightening journey.
+
+To Prof. Lisaann Gittner of the Political Science Department at Texas Tech University, who agreed to participate in my defense
+committee and provided valuable insight into how my work might assist the transdisciplinary efforts of the Exposome research group.
+
+To Mario Pitalua, who provided me with numerous data files, often within moments of my request.
+
+To Prof. Michael Frame of the Mathematics Department at Yale University, who provided endless inspiration and humor over Sunday
+afternoon tea.
+
+And to my wife Christine Waldron, whose love and support have been vital: I could not have done this without you.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Figures
@@ -360,6 +444,6 @@ Cluster \# & Unpruned Accuracy & Pruned Accuracy \\
 % 4. pdflatex traffic-classification.tex (again)
 
 \bibliographystyle{ieeetr}
-\bibliography{datta,kershenbaum,juarez,fselector,hartigan,bramer,aggarwal,quinlan,rpart,raman}
+\bibliography{datta,kershenbaum,juarez,fselector,hartigan,bramer,aggarwal,quinlan,quinlan2,rpart,raman}
 
 \end{document}

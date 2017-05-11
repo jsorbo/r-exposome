@@ -81,3 +81,14 @@ convert.to.factors <- function (df, colnames) {
   return(df)
 }
 
+run.k.means <- function (df, column.list, k) {
+  set.seed(43)
+  clusters <- kmeans(df[, column.list], k, nstart=20)
+  clusters$cluster <- as.factor(clusters$cluster)
+  result <- cbind(df, cluster.number=clusters$cluster)
+  return(result)
+}
+
+set.dataset.from.k.means <- function (df, cluster.number, column.list) {
+  return (df[which(df$cluster.number == cluster.number), column.list])
+}

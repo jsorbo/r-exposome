@@ -1,25 +1,34 @@
-merged <- convert.to.factors(merged, column.list.paraclique.5tiles)
+################################################################################
+# define data sets for k-means
 
 kMeansDataSet <- merged[, c(column.list.paraclique.5tiles, "cvd")]
-
-merged <- convert.to.factors(merged, column.list.all.5tiles)
 
 kMeansDataSet <- merged[, c(column.list.all.5tiles, "cvd")]
 
 ################################################################################
-# chi squared
+# convert to factors (used for feature reduction methods)
+
+kMeansDataSet <- convert.to.factors(kMeansDataSet, column.list.paraclique.5tiles)
+
+kMeansDataSet <- convert.to.factors(kMeansDataSet, column.list.all.5tiles)
+
+################################################################################
+# feature reduction: chi squared
 
 weights <- chi.squared(cvd ~ ., kMeansDataSet)
 
 ################################################################################
-# symmetrical uncertainty
+# feature reduction: symmetrical uncertainty
 
 weights <- symmetrical.uncertainty(cvd ~ ., kMeansDataSet)
 
 ################################################################################
-# gain ratio
+# feature reduction: gain ratio
 
 weights <- gain.ratio(cvd ~ ., kMeansDataSet)
+
+################################################################################
+# feature reduction: select features based on weights
 
 subset <- cutoff.k(weights, 5)
 
@@ -29,10 +38,9 @@ print(f)
 
 column.list.feature.reduction <- subset
 
-set.seed(43)
+################################################################################
+# run k-means
 
-clusters = kmeans(kMeansDataSet[, column.list.all.5tiles], 3, nstart=20)
+kMeansDataSet <- run.k.means(kMeansDataSet, column.list.paraclique.5tiles, 3)
 
-clusters$cluster <- as.factor(clusters$cluster)
-
-kMeansDataSet <- cbind(kMeansDataSet, clusterNum=clusters$cluster)
+kMeansDataSet <- run.k.means(kMeansDataSet, column.list.all.5tiles, 3)
