@@ -49,11 +49,13 @@
 
 \usepackage{hyperref}
 
+%\usepackage[toc,page]{appendix}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Hyphenation
 
 % correct bad hyphenation here
-\hyphenation{op-tical net-works semi-conduc-tor Bernaille Teixeira Akodkenou Soule Salamatian}
+\hyphenation{op-tical net-works semi-conduc-tor}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Document body
@@ -107,23 +109,22 @@ evaluated for their predictive accuracy.
 
 The exposome is the concept of the complete set of one's lifetime exposures. \cite{juarez} In recent years public health investigators have gained 
 unprecedented access to high volume, high dimension data sets combined from multiple, diverse sources,
-enabling the investigators to measure elements of the exposome driving health disparities. The exposome data,
-when analyzed in large data sets, allows investigators to uncover previously unknown relationships between factors affecting 
+enabling the investigators to measure elements of the exposome that may drive health disparities. The exposome data,
+when analyzed in large data sets, allow investigators to uncover previously unknown relationships between factors affecting 
 health outcomes such as preterm birth rates \cite{kershenbaum},
 obesity \cite{raman}, and cardiovascular disease (CVD).
 
-With the advent of such large data sets and the increased need to conduct analyses against them comes the increased pain of conducting such analysis work manually.
-Running data analysis processes manually can lead to slower throughput and increased rates of human error. The need to automate analytic processes increases further
-as the sophistication of the analysis rises and investigators need to reproduce the results.
+With the advent of such large data sets and the increased need to analyze them comes the increased costs of conducting such analysis work manually.
+Running data analysis processes manually can lead to slower throughput and increased rates of human error. The need to automate analytic processes grows further
+as the sophistication of the analysis rises and investigators need to repeat the processes.
 
-Numerous data mining algorithms can be applied to the exposome data to help investigators gain insights into the relationships among the data or to confirm known
-relationships. Clustering methods can uncover groupings among data points, decision trees can find rule sets to predict outcomes, and association rules mining can
-show co-occurrences among the data. When combined together as ensemble learning methods, it is hoped that a greater predictive accuracy may be achieved than
+Investigators can apply data mining techniques to the exposome data to help gain insights into the relationships among the data or to confirm known
+relationships. Clustering methods can uncover groupings among data points, decision trees can find rule sets to predict outcomes, and association mining can
+show correlations among the data. When combined together as ensemble learning methods, it is hoped that a greater predictive accuracy may be achieved than
 if the methods were used individually. \cite{bramer}, \cite{aggarwal}
 
-The remainder of this paper is organized as follows: the exposome paradigm and data mining applications
-are discussed; the exposome source data are described; the data modeling methodology is outlined;
-and the results are listed. Finally, some areas of future work are listed.
+The remainder of this paper is organized as follows: the exposome source data are described; the data modeling methodology is outlined;
+and the results are listed. Finally, some areas of future work are discussed.
 
 \section{Data}
 
@@ -153,24 +154,21 @@ such attributes were given friendly names based on a data dictionary provided by
 
 Data points with missing values were removed, and the independent data were merged with the dependent data based on the county and state names.
 
-All numeric attributes were grouped in quintiles.
-
-The CVD attribute in the merged file was converted to a binary type: the highest quintile (\textit{i.e.}, the highest rate of CVD) was set to 1,
-and the lower 4 quintiles were set to 0.
+All numeric attributes were grouped in quintiles. The CVD attribute in the merged file was converted to a binary type: 
+the highest quintile (\textit{i.e.}, the highest rate of CVD) was set to 1, and the lower 4 quintiles were set to 0.
 
 \subsection{Feature Selection}
 
 The exposome data were grouped into subsets for model training and evaluation. The first subset, hereafter referred to as ``data set 1,"
 consisted of 10 attributes identified as a paraclique by members of the Exposome research group. The second subset, hereafter referred to as ``data set 2,"
-included all 23 statistical attributes from the independent attributes file.
+included all 23 statistical attributes from the independent attributes file. The attributes in data set 1 and data set 2 are listed in Appendix \ref{appendix:dataset1} and Appendix \ref{appendix:dataset2}.
 
-Some feature selection techniques were applied to data set 2: the ${\chi}^2$ test, symmetrical uncertainty, and gain ratio, 
-all described in \cite{fselector}. The data sets resulting
-from these methods are hereafter referred to ``data set 2a," ``data set 2b," and ``data set 2c" respectively.
+Some feature selection techniques were applied to data sets 1 and 2: the ${\chi}^2$ test, symmetrical uncertainty, and gain ratio, 
+all described in \cite{fselector}.
 
 \subsection{Data Modeling}
 
-K-Means clustering \cite{hartigan} was applied to the paraclique data with k = 3, and each data point was labeled with the cluster id 1-3.
+K-Means clustering \cite{hartigan} was applied to each data set with k = 3, and each data point was labeled with the cluster id 1-3.
 
 Decision trees using recursive partitioning \cite{rpart} were trained against each cluster.
 
@@ -182,14 +180,14 @@ The first tree was trained against the full paraclique data set without clusteri
 The tree was found to have a predictive accuracy of 0.8203; a confusion matrix is shown in Table~\ref{table.confusion.matrix.01}.
 
 An attempt was made to prune the tree using cost-complexity pruning based on the lowest cross-validation error. This pruning attempt did not result in
-any changes to the tree. The process of training both unpruned and pruned trees was repeated 50 times. For the pruned trees, 
+any changes to the tree. The process of training both unpruned and pruned trees was repeated 50 times. For the unpruned trees, 
 the mean predictive accuracy was 0.8382 with a standard deviation of 0.0130, whereas
 the pruned trees gave a mean predictive accuracy of 0.8368 with a standard deviation of 0.0139.
 
 The second tree was trained against the statistical data set without clustering and is shown in Figure~\ref{decision.tree.02}. This tree
 had a predictive accuracy of 0.8835; a confusion matrix is shown in Table~\ref{table.confusion.matrix.02}.
 
-Again a pruning attempt was made, and the tree was unchanged. The repetition process was applied; for the pruned trees, the mean accuracy was 0.8887 
+Again a pruning attempt was made, and the tree was unchanged. The repetition process was applied; for the unpruned trees, the mean accuracy was 0.8887 
 with a standard deviation of 0.0105,
 whereas the pruned trees gave a mean accuracy of 0.8891 with a standard deviation of 0.0101.
 
@@ -197,42 +195,42 @@ The two trees were unwieldy for practical use, so feature selection methods (${\
 and the trees were created again. The accuracy resulting from each method for data set 1 is shown in Table~\ref{table.feature.reduction.accuracy.01},
 and the accuracy for data set 2 is in Table~\ref{table.feature.reduction.accuracy.02}.
 
-In either case, the highest levels of accuracy achieved following the application of the feature selection methods was only negligably different
+In either case, the highest levels of accuracy achieved following the application of the feature selection methods was not appreciably different
 from the accuracy obtained by training a tree against the full feature set.
 
-K-means was applied to Data Set 1 for k = 3, and a decision tree was trained on each of the three clusters to a maximum tree height of 3. 
+K-means was applied to data set 1 for k = 3, and a decision tree was trained on each of the three clusters to a maximum tree height of 3. 
 The accuracy for each of the three resulting trees is listed in Table~\ref{table.kmeans.accuracy.01}.
-These steps were repeated with Data Set 2; the accuracy is listed in Table~\ref{table.kmeans.accuracy.02}.
+These steps were repeated with data set 2; the accuracy is listed in Table~\ref{table.kmeans.accuracy.02}.
 
-The decision trees created from the 3 clusters in Data Set 2 were limited to a maximum depth of 3 levels. These trees are shown in 
+The decision trees created from the 3 clusters in data set 2 were limited to a maximum depth of 3 levels. These trees are shown in 
 Figure~\ref{decision.tree.02.1}, Figure~\ref{decision.tree.02.2}, and Figure~\ref{decision.tree.02.3}.
 
 \section{Conclusion}
 
 Numerous data preprocessing and analysis methods - cleaning, converting to quantiles, clustering, feature reduction,
 recursive partitioning, model evaluation - were applied to the exposome data files. All these methods were written in a collection of R
-scripts, reducing the tedium and error inherent in manual work and enabling the investigator to easily repeat,
+scripts, reducing the tedium and error rate inherent in manual work and enabling the investigator to easily repeat,
 modify, or reuse any of the methods.
 
-The shortcomings of this project's results underscore the need for a programmer to work closely with domain experts when conducting data modeling work:
-as in the case of this project, the programmer may focus much attention on the execution of the technical work, whereas only an expert in the
-subject matter can help the programmer determine whether the results will fulfill any practical needs.
+This project's shortcoming is perhaps a lack of immediate applicability of the results to the ongoing research efforts of the Exposome research group. This outcome underscores the need for a programmer to work closely with domain experts when conducting data modeling work:
+while the programmer may tend to focus on the execution of the technical work, only a subject matter expert can help the programmer determine whether the results will fulfill any practical needs.
 
 \section{Future Work}
 
-The ensemble method described in \cite{datta} included a step where the decision tree's depths were limited and then the a priori association mining algorithm
-was run against the data falling into the leaf nodes of the tree. Therefore a continuation of the work described in this paper should include an association
-mining step. In order to apply a priori against the data, one should complete a few major steps: first, the data should be converted into item sets for 
+The ensemble method described in \cite{datta} included a step where the a priori association mining algorithm
+was run against the data falling into the leaf nodes of the decision trees. Therefore a continuation of the work described in this paper should include an association
+mining step. In order to run a priori against the data, one might complete a few major steps: first, the data should be converted into item sets for 
 input into a priori; second, the decision tree should be transformed into a collection of production rules \cite{quinlan2}; and third, the data should be labeled with 
-the corresponding production rules. Upon completion of these steps, one could run a priori against each subset, select the relevant association rules, and
+the corresponding production rules. Upon completion of these steps, one might run a priori against each subset, select the relevant association rules, and
 combine those association rules with the decision tree rules to measure their performance together.
 
 Some of this work has been completed: the R pipeline contains optional steps for converting the original exposome data into quintiles and from there
-into binary incidence matrices that can be passed to the a priori algorithm.
+into binary incidence matrices that can be passed to the a priori implementation.
 
-\appendices
+\begin{appendices}
 
-\section{Independent Attributes in Paraclique Data (``Data Set 1")}
+\section{Attributes in Data Set 1}
+\label{appendix:dataset1}
 
 ageadjustedpercent2004diabetes, 
 ageadjustedpercentleisuretimephysicalinactivityprevalence2004, 
@@ -245,7 +243,8 @@ percentleisuretimephysicalinactivityprevalence2004,
 percentobesity2004, 
 PH\_SODA
 
-\section{Attributes in Statistical Data (``Data Set 2")}
+\section{Attributes in Data Set 2}
+\label{appendix:dataset2}
 
 ageadjustedpercent2004diabetes,
 ageadjustedpercentleisuretimephysicalinactivityprevalence2004, 
@@ -271,18 +270,19 @@ populationPerSquareMile,
 sampleMedianHousingUnitValue, 
 unemploymentRate
 
+\end{appendices}
+
 \section*{Acknowledgment}
 
 To my adviser, Prof. Susan Mengel of the Computer Science Department at Texas Tech University, whose guidance helped shape
 my project experience into an enjoyable and enlightening journey.
 
-To Prof. Lisaann Gittner of the Political Science Department at Texas Tech University, who agreed to participate in my defense
-committee and provided valuable insight into how my work might assist the transdisciplinary efforts of the Exposome research group.
+To Prof. Lisa Gittner of the Political Science Department at Texas Tech University, who agreed to participate in my defense
+committee and provided valuable insight into how my work might assist the trans-disciplinary efforts of the Exposome research group.
 
-To Mario Pitalua, who provided me with numerous data files, often within moments of my request.
+To Mario Pitalua, who provided me with numerous data files, often within minutes of my requests.
 
-To Prof. Michael Frame of the Mathematics Department at Yale University, who provided endless inspiration and humor over Sunday
-afternoon tea.
+To my dear friends Michael Frame and Jean Maatta, who continue to encourage and inspire.
 
 And to my wife Christine Waldron, whose love and support have been vital: I could not have done this without you.
 
