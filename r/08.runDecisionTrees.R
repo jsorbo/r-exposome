@@ -2,7 +2,7 @@
 # 5. build decision trees
 
 # build model
-ctrl = rpart.control(maxdepth=3)
+ctrl = rpart.control(maxdepth=10)
 rpart_model <- rpart(cvd ~ ., data = trainset, method = "class", control=ctrl)
 
 # plot tree
@@ -17,6 +17,8 @@ mean(rpart_predict == testset$cvd)
 
 # confusion matrix
 table(pred = rpart_predict, true = testset$cvd)
+
+rules <- asRules(rpart_model)
 
 # cost-complexity pruning
 # pick the appropriate pruning parameter alpha by
